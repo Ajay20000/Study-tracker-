@@ -1,16 +1,16 @@
 #!/bin/bash
 # ====================================================================
-# TREBEDIT SECURE REAL-TIME PUSH TRACKER PIPELINE
+# TREBEDIT COMPACT SMART PUSH PIPELINE WITH CONDITIONAL COMMIT GUARDS
 # TARGET WORKSPACE: /storage/emulated/0/GitHub /
 # ====================================================================
 
 TARGET_DIR="."
 
-echo "🚀 TrebEdit Real-Time Watcher System Activated!"
-echo "📍 Watching Path: Internal Storage/GitHub (with trailing space config)"
-echo "🎯 Keep this console frame active in the background while studying..."
+echo "🚀 Smart TrebEdit Watcher Thread Loaded Successfully!"
+echo "📍 Watching Path: Internal Storage/GitHub "
+echo "🎯 Focus on your study layout. Automation loop is live..."
 
-# Continuous watcher utilizing native platform filesystem hooks elements
+# Continuous monitoring via native platform filesystem triggers
 inotifywait -m -r -e modify -e create -e delete --format '%w%f' "$TARGET_DIR" | while read ATTACHED_FILE
 do
     # Secure bypass to prevent recursive internal git tracking loops
@@ -18,12 +18,18 @@ do
         continue
     fi
 
-    echo "⚡ TrebEdit code modification captured at: $ATTACHED_FILE"
-    echo "📦 Packaging automated incremental commit metrics stream..."
+    # Verify if any actual modifications exist inside tracker layout
+    if [ -z "$(git status --porcelain)" ]; then
+        # No actual code drift detected, safely bypass trigger
+        continue
+    fi
 
-    # Sequential live production cloud deployment triggers executing instantly
+    echo "⚡ Code change captured at: $ATTACHED_FILE"
+    echo "📦 Bundling files and executing automatic background deployment..."
+
+    # Sequential Git automated deployment pipeline strings
     git add .
-    git commit -m "Auto-sync: Live code modifications committed directly from TrebEdit mobile workspace"
+    git commit -m "Auto-sync: Incremental study layout updates compiled from Android local storage"
     git push origin main
 
     echo "✓ Patch successfully uploaded to GitHub repository!"

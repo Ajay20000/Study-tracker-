@@ -292,8 +292,8 @@
                     <div>
                         <label class="block text-xs font-bold uppercase text-[var(--text-muted)] mb-1">Select Examination Tier Architecture</label>
                         <div class="grid grid-cols-2 gap-2">
-                            <button onclick="setMockExaminationTier('T1')" id="btn-tier-toggle-t1" class="py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-indigo-600 bg-indigo-600 text-white transition-all duration-150 cursor-pointer">CGL Tier 1st</button>
-                            <button onclick="setMockExaminationTier('T2')" id="btn-tier-toggle-t2" class="py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-[var(--border-ui)] text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-main)] transition-all duration-150 cursor-pointer">CGL Tier 2nd</button>
+                            <button onclick="setMockExaminationTier('T1')" id="btn-tier-toggle-t1" class="py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-indigo-600 bg-indigo-600 text-white transition-all duration-150 shadow-md cursor-pointer">CGL Tier 1st</button>
+                            <button onclick="setMockExaminationTier('T2')" id="btn-tier-toggle-t2" class="py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-[var(--border-ui)] text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-main)] transition-all duration-150 shadow-md cursor-pointer">CGL Tier 2nd</button>
                         </div>
                     </div>
 
@@ -364,8 +364,8 @@
 
     <button class="theme-toggle-fab w-14 h-14 rounded-full flex items-center justify-center text-xl cursor-pointer hover:scale-105 active:scale-95 transition-all duration-150 shadow-2xl" id="themeToggleButton" onclick="toggleSystemThemeModeConfiguration()">🌙</button>
 
-    <div id="app-credentials-setup-modal-shroud" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-opacity duration-300">
-        <div class="bg-[var(--bg-card)] border border-[var(--border-ui)] rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl scale-100 transition-transform duration-300">
+    <div id="app-credentials-setup-modal-shroud" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div class="bg-[var(--bg-card)] border border-[var(--border-ui)] rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl">
             <div class="text-center">
                 <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mx-auto text-indigo-600 text-2xl font-black mb-2">🔐</div>
                 <h2 class="text-xl font-black text-[var(--text-main)]">Cloud Synchronization Link</h2>
@@ -375,21 +375,21 @@
             <div class="space-y-3">
                 <div>
                     <label class="block text-[11px] font-bold uppercase text-[var(--text-muted)] mb-1">Supabase REST Endpoint Web URL</label>
-                    <input type="text" id="setup-credentials-supabase-url" placeholder="https://xyz.supabase.co" class="w-full p-2.5 rounded-lg ui-input font-medium text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                    <input type="text" id="setup-credentials-supabase-url" placeholder="https://xyz.supabase.co" class="w-full p-2.5 rounded-lg ui-input font-medium text-sm focus:outline-none">
                 </div>
                 <div>
                     <label class="block text-[11px] font-bold uppercase text-[var(--text-muted)] mb-1">Supabase Client Public Anon API Key Token</label>
-                    <input type="text" id="setup-credentials-supabase-anon-key" placeholder="eyJhbGciOi..." class="w-full p-2.5 rounded-lg ui-input font-medium text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                    <input type="text" id="setup-credentials-supabase-anon-key" placeholder="eyJhbGciOi..." class="w-full p-2.5 rounded-lg ui-input font-medium text-sm focus:outline-none">
                 </div>
                 <div class="grid grid-cols-2 gap-2 pt-1">
                     <div class="col-span-2">
                         <label class="block text-[11px] font-bold uppercase text-[var(--text-muted)] mb-1">Your Identity Profile Name (Username)</label>
-                        <input type="text" id="setup-credentials-user-profile-name" placeholder="e.g., Ajay" class="w-full p-2.5 rounded-lg ui-input font-bold text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                        <input type="text" id="setup-credentials-user-profile-name" placeholder="e.g., Ajay" class="w-full p-2.5 rounded-lg ui-input font-bold text-sm focus:outline-none">
                     </div>
                 </div>
             </div>
 
-            <button onclick="authenticateAppInitializationSequence()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-sm rounded-xl transition-all duration-150 uppercase tracking-widest shadow-md cursor-pointer">Establish Pipeline</button>
+            <button id="btn-establish-pipeline-trigger" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-sm rounded-xl transition-all duration-150 uppercase tracking-widest shadow-md cursor-pointer">Establish Pipeline</button>
         </div>
     </div>
 
@@ -408,7 +408,6 @@
         let timerWebWorkerThread = null;
         let nativeAudioContextRegistry = null;
 
-        // Structured Static Subject Color Palette Mapping Matrix Array Rules
         const SUBJECTS_CORE_PALETTE = {
             "Quantitative Aptitude": "#4f46e5",
             "English Language": "#06b6d4",
@@ -423,7 +422,6 @@
             "Mocks Engineering": "#64748b"
         };
 
-        // Standard Default Base Syllabus Checklist Architecture Data Trees
         const MASTER_SYLLABUS_DATA_DICTIONARY = {
             "QA": [
                 "Percentage & Successive Fractions", "Profit, Loss & Discount Arrays", "Ratio, Proportion & Mixture Alligations",
@@ -463,7 +461,6 @@
         }
 
         function recomputeAndRenderDashboardCharts(sessionLogsArray, mockSheetsLogsArray) {
-            // Process A: Study Allocation Volumetric Pie/Doughnut Computations Metrics Map
             const subjectDurationAccumulator = {};
             sessionLogsArray.forEach(log => {
                 const subject = log.subject_name || log.subject || "Unmapped Domain";
@@ -498,11 +495,10 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 }, color: getComputedStyle(document.documentElement).getPropertyValue('--text-main').trim() } } }
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 }, color: '#64748b' } } }
                 }
             });
 
-            // Process B: Mock Score Trajectory Growth Line Calculations (With Native Target Overrides)
             const sortedMocks = [...mockSheetsLogsArray].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
             const mockLabels = sortedMocks.map((mock, idx) => mock.name || `Mock #${idx + 1}`);
             const mockPercentages = sortedMocks.map(mock => {
@@ -557,8 +553,8 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        y: { min: 0, max: 100, ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text-muted').trim() }, grid: { color: getComputedStyle(document.documentElement).getPropertyValue('--border-ui').trim() } },
-                        x: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text-muted').trim() }, grid: { display: false } }
+                        y: { min: 0, max: 100 },
+                        x: { grid: { display: false } }
                     },
                     plugins: { legend: { display: false } }
                 },
@@ -580,11 +576,9 @@
                 if (tab === targetTabId) {
                     panel.classList.remove('hidden');
                     panel.classList.add('block');
-                    btn.className = "px-5 py-3 font-bold text-sm border-b-2 border-indigo-600 text-indigo-600 transition-all duration-200 cursor-pointer";
                 } else {
                     panel.classList.remove('block');
                     panel.classList.add('hidden');
-                    btn.className = "px-5 py-3 font-bold text-sm border-b-2 border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)] transition-all duration-200 cursor-pointer";
                 }
             });
 
@@ -597,7 +591,6 @@
             document.documentElement.setAttribute('data-theme', targetTheme);
             localStorage.setItem('ssc_warriors_theme_config', targetTheme);
             document.getElementById('themeToggleButton').innerText = targetTheme === 'dark' ? '☀️' : '🌙';
-            triggerMasterDatabaseSynchronizationRefresh();
         }
 
         function initializeSystemThemeEngine() {
@@ -679,8 +672,7 @@
                     timerWebWorkerThread.terminate();
                 }
                 localStorage.setItem('pomodoro_engine_runtime_state', 'STOPPED');
-                actionToggleButton.innerText = "Resume Block";
-                actionToggleButton.className = "flex-1 py-3 bg-amber-600 hover:bg-amber-700 text-white font-black rounded-xl text-sm transition-all duration-150 shadow-md cursor-pointer uppercase tracking-wider";
+                actionToggleButton.innerText = "Start Block";
                 document.getElementById('pomodoro-state-badge').innerText = "⏸️ POMODORO PAUSED";
             } else {
                 let remainingSeconds = parseInt(localStorage.getItem('pomodoro_seconds_counter_remaining'));
@@ -695,8 +687,6 @@
                 localStorage.setItem('pomodoro_engine_runtime_state', 'RUNNING');
                 
                 actionToggleButton.innerText = "Pause Block";
-                actionToggleButton.className = "flex-1 py-3 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-xl text-sm transition-all duration-150 shadow-md cursor-pointer uppercase tracking-wider";
-
                 spawnContinuousWebWorkerCountdownLoop(expectedTargetWallClockTimestamp);
             }
         }
@@ -819,7 +809,6 @@
 
             const toggleButton = document.getElementById('btn-pomodoro-primary-toggle');
             toggleButton.innerText = "Start Block";
-            toggleButton.className = "flex-1 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl text-sm transition-all duration-150 shadow-md cursor-pointer uppercase tracking-wider";
             document.getElementById('pomodoro-state-badge').innerText = "🎯 FOCUS ENGINE READY";
         }
 
@@ -837,7 +826,6 @@
                     
                     const actionButton = document.getElementById('btn-pomodoro-primary-toggle');
                     actionButton.innerText = "Pause Block";
-                    actionButton.className = "flex-1 py-3 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-xl text-sm transition-all duration-150 shadow-md cursor-pointer uppercase tracking-wider";
                     
                     spawnContinuousWebWorkerCountdownLoop(targetEndWallclockMs);
                 } else {
@@ -1118,7 +1106,7 @@
             localStorage.setItem(extendedRegistryKey, JSON.stringify(existingLocalExtensions));
 
             textInputField.value = '';
-            toastNotificationPopup(`Added custom topic into syllabus layouts.`);
+            toastNotificationPopup("Added custom topic into syllabus layouts.");
             await renderSyllabusMilestonesChecklistInterface();
         }
 
@@ -1201,7 +1189,7 @@
             localStorage.setItem('core_credentials_supabase_anon_key', clientAnonTokenKey);
             localStorage.setItem('ssc_user_profile_name', localUsernameValue);
 
-            document.getElementById('app-credentials-setup-modal-shroud').classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('app-credentials-setup-modal-shroud').style.display = 'none';
             initializeGlobalCloudConnectionPipeline();
         }
 
@@ -1210,7 +1198,7 @@
             const token = localStorage.getItem('core_credentials_supabase_anon_key');
             
             if (url && token) {
-                document.getElementById('app-credentials-setup-modal-shroud').classList.add('opacity-0', 'pointer-events-none');
+                document.getElementById('app-credentials-setup-modal-shroud').style.display = 'none';
                 initializeGlobalCloudConnectionPipeline();
             }
         }
@@ -1224,6 +1212,7 @@
             document.getElementById('active-profile-identity-banner').classList.remove('hidden');
             document.getElementById('identity-your-live-name').innerText = `${currentUserName} (You)`;
 
+            // Explicit direct initialization parameters binding layout maps to prevent asynchronous UI lockups
             supabase = window.supabase.createClient(targetUrlString, targetAnonKeyToken);
             toastNotificationPopup("Authorization link secure. Connecting cloud server workspace.");
             
@@ -1292,14 +1281,14 @@
                 studyLogsData.forEach(row => {
                     const parsedTimestampText = new Date(row.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                     const tableRowTrNode = document.createElement('tr');
-                    tableRowTrNode.className = "border-b border-[var(--border-ui)] hover:bg-slate-50 dark:hover:bg-slate-800/40 text-xs text-[var(--text-main)]";
+                    tableRowTrNode.className = "border-b border-[var(--border-ui)] text-xs text-[var(--text-main)]";
                     tableRowTrNode.innerHTML = `
-                        <td class="py-3 px-2 font-mono text-[var(--text-muted)]">${parsedTimestampText}</td>
+                        <td class="py-3 px-2 font-mono">${parsedTimestampText}</td>
                         <td class="py-3 px-2 font-bold">${row.user_name}</td>
                         <td class="py-3 px-2"><span class="px-2 py-0.5 rounded text-[10px] font-black text-white" style="background-color: ${SUBJECTS_CORE_PALETTE[row.subject_name || row.subject] || '#64748b'}">${row.subject_name || row.subject}</span></td>
                         <td class="py-3 px-2 font-bold tabular-nums">${row.duration} Minutes</td>
                         <td class="py-3 px-2 text-right">
-                            ${row.user_name === activeUserNameText ? `<button onclick="executeRecordDeletionSequencePipeline('sessions', '${row.id}')" class="text-rose-500 hover:text-rose-700 font-bold transition-colors cursor-pointer text-[13px]">🗑️</button>` : ''}
+                            ${row.user_name === activeUserNameText ? `<button onclick="executeRecordDeletionSequencePipeline('sessions', '${row.id}')" class="text-rose-500 font-bold cursor-pointer text-[13px]">🗑️</button>` : ''}
                         </td>
                     `;
                     studyTableBodyNode.appendChild(tableRowTrNode);
@@ -1310,18 +1299,18 @@
 
                 mockLogsData.forEach(mockRow => {
                     const rowPercentScore = mockRow.total > 0 ? Math.round((mockRow.score / mockRow.total) * 100) : 0;
-                    const performanceBadgeColorStyle = rowPercentScore >= 78 ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-200" : "bg-indigo-100 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-400 border border-indigo-200";
+                    const performanceBadgeColorStyle = rowPercentScore >= 78 ? "bg-emerald-100 text-emerald-700 border border-emerald-200" : "bg-indigo-100 text-indigo-700 border border-indigo-200";
                     
                     const mockTrNode = document.createElement('tr');
-                    mockTrNode.className = "border-b border-[var(--border-ui)] hover:bg-slate-50 dark:hover:bg-slate-800/40 text-xs text-[var(--text-main)]";
+                    mockTrNode.className = "border-b border-[var(--border-ui)] text-xs text-[var(--text-main)]";
                     mockTrNode.innerHTML = `
-                        <td class="py-3 px-2 font-bold tracking-tight">${mockRow.name}</td>
-                        <td class="py-3 px-2 font-semibold text-[var(--text-muted)]">${mockRow.user_name}</td>
-                        <td class="py-3 px-2"><span class="px-1.5 py-0.5 bg-slate-200 dark:bg-slate-700 rounded text-[10px] font-black">${mockRow.subject}</span></td>
-                        <td class="py-3 px-2 font-mono text-[11px] text-[var(--text-muted)]">QA:${mockRow.qa_score || 0} | GI:${mockRow.gi_score || 0} | EL:${mockRow.el_score || 0} | GA:${mockRow.ga_score || 0}</td>
-                        <td class="py-3 px-2"><span class="px-2 py-1 rounded-lg text-xs font-black tracking-tight ${performanceBadgeColorStyle}">${mockRow.score} / ${mockRow.total} (${rowPercentScore}%)</span></td>
+                        <td class="py-3 px-2 font-bold">${mockRow.name}</td>
+                        <td class="py-3 px-2 font-semibold">${mockRow.user_name}</td>
+                        <td class="py-3 px-2"><span class="px-1.5 py-0.5 bg-slate-200 rounded text-[10px] font-black">${mockRow.subject}</span></td>
+                        <td class="py-3 px-2 font-mono text-[11px]">QA:${mockRow.qa_score || 0} | GI:${mockRow.gi_score || 0} | EL:${mockRow.el_score || 0} | GA:${mockRow.ga_score || 0}</td>
+                        <td class="py-3 px-2"><span class="px-2 py-1 rounded-lg text-xs font-black ${performanceBadgeColorStyle}">${mockRow.score} / ${mockRow.total} (${rowPercentScore}%)</span></td>
                         <td class="py-3 px-2 text-right">
-                            ${mockRow.user_name === activeUserNameText ? `<button onclick="executeRecordDeletionSequencePipeline('mock_tests', '${mockRow.id}')" class="text-rose-500 hover:text-rose-700 font-bold transition-colors cursor-pointer text-[13px]">🗑️</button>` : ''}
+                            ${mockRow.user_name === activeUserNameText ? `<button onclick="executeRecordDeletionSequencePipeline('mock_tests', '${mockRow.id}')" class="text-rose-500 font-bold cursor-pointer text-[13px]">🗑️</button>` : ''}
                         </td>
                     `;
                     mockTableBodyNode.appendChild(mockTrNode);
@@ -1355,12 +1344,15 @@
         }
 
         // ====================================================================
-        // PRIMARY APP STARTUP LIFECYCLE INITIALIZER ENTRYPOINT
+        // INTERACTIVE ATTACHMENTS LAYER & INITIALIZATION
         // ====================================================================
 
-        window.addEventListener('DOMContentLoaded', async () => {
+        window.addEventListener('DOMContentLoaded', () => {
             initializeSystemThemeEngine();
             generateCompositeScoreFormsLayout();
+            
+            // Hardbound strict inline registration button reference handler to bypass standard formatting gaps
+            document.getElementById('btn-establish-pipeline-trigger').onclick = authenticateAppInitializationSequence;
             
             checkExistingSavedCredentialsPipeline(); 
             restoreResilientTimerStateOnLifecycleReload(); 

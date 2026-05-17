@@ -144,7 +144,7 @@
                 </div>
                 
                 <div class="versus-flex-frame flex items-center justify-between gap-6 py-2">
-                    <div class="versus-player-card flex-1 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border border-[var(--border-ui)]">
+                    <div class="versus-player-card flex-1 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-[var(--border-ui)]">
                         <p class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest">You (Focus Core)</p>
                         <h4 id="identity-your-live-name" class="text-lg font-black mt-0.5 text-indigo-500">Warrior</h4>
                         <div id="versus-your-time-display" class="text-3xl font-black tracking-tight mt-2 text-[var(--text-main)]">0 Mins</div>
@@ -152,7 +152,7 @@
 
                     <div class="text-center font-black text-xl text-slate-400 select-none">VS</div>
 
-                    <div class="versus-player-card flex-1 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border border-[var(--border-ui)] text-right">
+                    <div class="versus-player-card flex-1 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-[var(--border-ui)] text-right">
                         <p class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest">Study Buddy</p>
                         <h4 id="identity-buddy-live-name" class="text-lg font-black mt-0.5 text-rose-500">Competitor</h4>
                         <div id="versus-buddy-time-display" class="text-3xl font-black tracking-tight mt-2 text-[var(--text-main)]">0 Mins</div>
@@ -207,7 +207,7 @@
                     <h3 class="text-base font-black border-b border-[var(--border-ui)] pb-2">⚙️ Calibration Parameters</h3>
                     
                     <div>
-                        <label class="block text-xs font-bold uppercase style='color: var(--text-muted);' mb-1">Choose Focus Session Time</label>
+                        <label class="block text-xs font-bold uppercase text-[var(--text-muted)] mb-1">Choose Focus Session Time</label>
                         <select id="pomodoro-session-selector" class="w-full p-2.5 rounded-lg ui-input font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
                             <option value="25" selected>25 Minutes (Standard Pomodoro)</option>
                             <option value="30">30 Minutes (Deep Focus Cycle)</option>
@@ -379,7 +379,7 @@
                 </div>
                 <div>
                     <label class="block text-[11px] font-bold uppercase text-[var(--text-muted)] mb-1">Supabase Client Public Anon API Key Token</label>
-                    <input type="password" id="setup-credentials-supabase-anon-key" placeholder="eyJhbGciOi..." class="w-full p-2.5 rounded-lg ui-input font-medium text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                    <input type="text" id="setup-credentials-supabase-anon-key" placeholder="eyJhbGciOi..." class="w-full p-2.5 rounded-lg ui-input font-medium text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500">
                 </div>
                 <div class="grid grid-cols-2 gap-2 pt-1">
                     <div class="col-span-2">
@@ -929,11 +929,11 @@
             const btnT2 = document.getElementById('btn-tier-toggle-t2');
 
             if (targetTierStringCode === 'T1') {
-                btnT1.className = "py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-indigo-600 bg-indigo-600 text-white transition-all duration-150 cursor-pointer";
-                btnT2.className = "py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-[var(--border-ui)] text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-main)] transition-all duration-150 cursor-pointer";
+                btnT1.className = "py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-indigo-600 bg-indigo-600 text-white transition-all duration-150 shadow-md cursor-pointer";
+                btnT2.className = "py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-[var(--border-ui)] text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-main)] transition-all duration-150 shadow-md cursor-pointer";
             } else {
-                btnT2.className = "py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-indigo-600 bg-indigo-600 text-white transition-all duration-150 cursor-pointer";
-                btnT1.className = "py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-[var(--border-ui)] text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-main)] transition-all duration-150 cursor-pointer";
+                btnT2.className = "py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-indigo-600 bg-indigo-600 text-white transition-all duration-150 shadow-md cursor-pointer";
+                btnT1.className = "py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-[var(--border-ui)] text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-main)] transition-all duration-150 shadow-md cursor-pointer";
             }
 
             generateCompositeScoreFormsLayout();

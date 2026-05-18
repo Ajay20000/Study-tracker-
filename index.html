@@ -1595,7 +1595,7 @@
 
                 let dailyAccumulatedMinutesYourself = 0;
                 let dailyAccumulatedMinutesBuddyPeer = 0;
-                let activeBuddyIdentityName = ;
+                let activeBuddyIdentityName = localStorage.getItem('ssc_buddy_profile_name') || '—';
 
                 studyLogsData.forEach(sessionRow => {
                     const rowDurationInt = parseInt(sessionRow.duration || 0);

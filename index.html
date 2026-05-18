@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
-        /* 🌓 Professional Night Mode Architecture Core Variables */
+        /* 🌓 Professional Night Mode Architecture Core Variables Palette */
         :root {
             --bg-primary: #f8fafc;
             --bg-card: #ffffff;
@@ -56,7 +56,6 @@
             border: 1px solid var(--border-ui);
         }
 
-        /* Dark mode: Tailwind bg-slate-50 hardcoded fix */
         [data-theme="dark"] .syllabus-topic-row {
             background-color: #1e293b !important;
             color: #f8fafc !important;
@@ -66,12 +65,9 @@
             color: #4ade80 !important;
         }
 
-        /* Chart.js legend + tick text dark mode */
-        [data-theme="dark"] canvas {
-            color-scheme: dark;
-        }
+        [data-theme="dark"] canvas { color-scheme: dark; }
 
-        /* Scientific Pomodoro Interactive Recommendation Cards Grid */
+        /* Scientific Recommendations Layout Placeholder Box Card */
         .rec-box {
             background: linear-gradient(135deg, var(--accent-glow), #06b6d4);
             color: #ffffff;
@@ -82,55 +78,26 @@
             box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
         }
 
-        /* 📱 CRITICAL MOBILE ONLY RE-LAYOUT (Bypasses Desktop Mode Constraint Permanently) */
+        /* 📱 CRITICAL MOBILE SCREEN LAYOUT EXPLICIT OVERRIDES FOR RESPONSIVE BEHAVIOR */
         @media (max-width: 768px) {
-            .app-container {
-                padding: 0.5rem !important;
-            }
-            .dashboard-grid {
-                grid-template-columns: 1fr !important;
-                gap: 1rem !important;
-            }
-            .versus-flex-frame {
-                flex-direction: column !important;
-                gap: 1.25rem !important;
-            }
-            .versus-player-card {
-                width: 100% !important;
-                text-align: center;
-            }
+            .app-container { padding: 0.5rem !important; }
+            .dashboard-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+            .versus-flex-frame { flex-direction: column !important; gap: 1.25rem !important; }
+            .versus-player-card { width: 100% !important; text-align: center; }
             .nav-tabs-scroll {
-                display: flex;
-                overflow-x: auto;
-                white-space: nowrap;
-                scrollbar-width: none;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 0.25rem;
-                border-bottom: 2px solid var(--border-ui);
+                display: flex; overflow-x: auto; white-space: nowrap;
+                scrollbar-width: none; -webkit-overflow-scrolling: touch;
+                padding-bottom: 0.25rem; border-bottom: 2px solid var(--border-ui);
             }
-            .nav-tabs-scroll::-webkit-scrollbar {
-                display: none;
-            }
-            .timer-display-digits {
-                font-size: 3.75rem !important;
-                line-height: 1 !important;
-            }
-            .responsive-table-wrapper {
-                display: block;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
+            .nav-tabs-scroll::-webkit-scrollbar { display: none; }
+            .timer-display-digits { font-size: 3.75rem !important; line-height: 1 !important; }
+            .responsive-table-wrapper { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
         }
 
-        /* Night Mode Floating Trigger Action Button */
         .theme-toggle-fab {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            background-color: var(--accent-glow);
-            color: #ffffff;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            z-index: 50;
+            position: fixed; bottom: 1.5rem; right: 1.5rem;
+            background-color: var(--accent-glow); color: #ffffff;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); z-index: 50;
         }
     </style>
 </head>
@@ -180,7 +147,7 @@
                     <div class="versus-player-card flex-1 p-4 rounded-xl border border-[var(--border-ui)]" style="background-color:var(--bg-primary)">
                         <p class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest">You (Focus Core)</p>
                         <h4 id="identity-your-live-name" class="text-lg font-black mt-0.5 text-indigo-500">Warrior</h4>
-                        <div id="versus-your-time-display" class="text-3xl font-black tracking-tight mt-2 text-[var(--text-main)]">0 Mins</div>
+                        <div id="versus-your-time-display" class="text-3xl font-black tracking-tight mt-2 text-[var(--text-main)]">0h 00m</div>
                     </div>
 
                     <div class="text-center font-black text-xl text-slate-400 select-none">VS</div>
@@ -188,12 +155,12 @@
                     <div class="versus-player-card flex-1 p-4 rounded-xl border border-[var(--border-ui)] text-right" style="background-color:var(--bg-primary)">
                         <p class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest">Study Buddy</p>
                         <h4 id="identity-buddy-live-name" class="text-lg font-black mt-0.5 text-rose-500">—</h4>
-                        <div id="versus-buddy-time-display" class="text-3xl font-black tracking-tight mt-2 text-[var(--text-main)]">0 Mins</div>
+                        <div id="versus-buddy-time-display" class="text-3xl font-black tracking-tight mt-2 text-[var(--text-main)]">0h 00m</div>
                     </div>
                 </div>
                 
                 <div id="versus-battle-status-alert" class="mt-4 text-center text-sm font-bold bg-slate-100 dark:bg-slate-800/60 py-2 rounded-lg text-[var(--text-main)]">
-                    🤝 Establish cloud tracking connection vectors to parse analytics.
+                    🤝 Establish cloud tracking connection credentials vectors to parse analytics.
                 </div>
             </div>
 
@@ -210,7 +177,7 @@
             <div class="dashboard-grid grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="custom-card p-6">
                     <p class="text-xs font-black text-[var(--text-muted)] tracking-wider uppercase">📐 Today's Cumulative Study Volume</p>
-                    <h3 id="stat-metrics-total-study-hours" class="text-4xl font-black tracking-tight mt-2 text-indigo-600 dark:text-indigo-400">0.0 Hours</h3>
+                    <h3 id="stat-metrics-total-study-hours" class="text-4xl font-black tracking-tight mt-2 text-indigo-600 dark:text-indigo-400">0h 00m</h3>
                     <p class="text-xs mt-1 text-[var(--text-muted)]">Real-time sessions logs aggregate computation scale.</p>
                 </div>
                 <div class="custom-card p-6">
@@ -245,8 +212,8 @@
             <div class="custom-card p-6">
                 <div class="flex items-center justify-between mb-4 border-b border-[var(--border-ui)] pb-3">
                     <div>
-                        <h4 class="text-sm font-black uppercase tracking-widest text-[var(--text-muted)]">🎯 Subject-wise Mock Performance Analyser</h4>
-                        <p class="text-xs text-[var(--text-muted)] mt-0.5">Based on all your mock test scores — avg %, trend & verdict for each subject.</p>
+                        <h4 class="text-sm font-black uppercase tracking-widest text-[var(--text-muted)]">📡 Cross-User Assessment Radar Analytics Feed (Distinct Colours)</h4>
+                        <p class="text-xs text-[var(--text-muted)] mt-0.5">Compares dynamic normalized average efficiencies side-by-side across all active user entities entries seamlessly.</p>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 dashboard-grid">
@@ -334,8 +301,8 @@
             </div>
 
             <div class="custom-card p-6">
-                <h3 class="text-base font-black mb-4 border-b border-[var(--border-ui)] pb-2">📋 Comprehensive Historical Study Ledgers (True Segmented Multi-User Views)</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+                <h3 class="text-base font-black mb-4 border-b border-[var(--border-ui)] pb-2">📋 Isolated Historical Study Ledgers (True Segmented Multi-User Views)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 dashboard-grid">
                     <div>
                         <h4 class="text-xs font-black text-indigo-600 uppercase tracking-widest mb-2">🥇 Your Secure Focus Study Blocks</h4>
                         <div class="responsive-table-wrapper">
@@ -520,7 +487,6 @@
     <div id="ui-toast-notifications-delivery-stack-deck" class="fixed top-5 right-5 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none"></div>
 
     <script>
-        // Global State Core Parameters Mapping Matrix Registers Configuration
         let supabaseClient = null;
         let activeRouteTabId = 'dashboard';
         let activeExaminationTier = 'T1';
@@ -529,7 +495,6 @@
         let mockTrajectoryChartInstance = null;
         let subjectRadarChartInstance = null;
 
-        // Background Safe Multi-Threaded Architecture Web Worker Reference Pointer
         let timerWebWorkerThread = null;
         let nativeAudioContextRegistry = null;
 
@@ -547,21 +512,7 @@
             "Mocks Engineering": "#64748b"
         };
 
-        // FIXED STRUCTURAL RULE: Target-wise scientific recommendations matrix mappings
-        const scientificPomodoroRulesEngineMatrix = {
-            "Quantitative Aptitude": { rec: "🧠 <b>Quant System:</b> Deep analytical logic chains require high-level cognitive stability loops. Apps recommend <b>60 Mins Hyperfocus / 15 Mins Break</b> slabs to protect formulas mapping.", time: "60" },
-            "English Language": { rec: "⚡ <b>English Language:</b> Error spotting matrices and dense high-frequency vocab rules are memory dependent. Recommended balance is <b>45 Mins Focus / 10 Mins Break</b> blocks.", time: "45" },
-            "Reasoning Intelligence": { rec: "🧩 <b>Reasoning Intelligence:</b> Matrix diagnostics checks and tree relations work best in deep flow states. Standard profile uses <b>45 Mins Focus / 10 Mins Break</b> intervals.", time: "45" },
-            "General Awareness": { rec: "⏱️ <b>General Awareness:</b> Memory retention for Static GK Capsules and editorial logs behavior operates finest in short sprints: <b>25 Mins Focus / 5 Mins Break</b>.", time: "25" },
-            "Current Affairs": { rec: "📰 <b>Current Affairs Sprints:</b> Fast dynamic text digestion blocks respond highly efficiently to quick bursts. Recommended standard is <b>25 Mins Focus / 5 Mins Break</b> cycles.", time: "25" },
-            "Newspaper Analysis": { rec: "📑 <b>Newspaper Reading:</b> Editorial scanning behaves perfectly across rapid tracking cycles. Standard apps advice <b>25 Mins Sprint / 5 Mins Break</b>.", time: "25" },
-            "Book Reading": { rec: "📖 <b>Textbook Slabs:</b> Constant reading cycles maintain supreme momentum inside standard focus blocks: <b>30 Mins Focus / 5 Mins Break</b>.", time: "30" },
-            "Calculation Practice": { rec: "🔢 <b>Calculation Drills:</b> Daily speed mathematics table drills execute cleanly inside compact intervals: <b>25 Mins Sprint / 5 Mins Break</b>.", time: "25" },
-            "Formula Revision": { rec: "📐 <b>Formula Log Frameworks:</b> Fast memory triggers revision loops work elegantly across <b>25 Mins Sprint / 5 Mins Break</b> intervals.", time: "25" },
-            "Vocabulary Building": { rec: "📕 <b>Vocab Tracking Cards:</b> Repetitive memorization curves optimize flawlessly inside shorter target bursts: <b>25 Mins Sprint / 5 Mins Break</b>.", time: "25" },
-            "Mocks Engineering": { rec: "🏆 <b>Assessment Deck:</b> Sectional mocks or composite multi-subject sheets require un-interrupted marathon hyperfocus blocks: <b>60 Mins Extreme focus / 15 Mins Rest</b>.", time: "60" }
-        };
-
+        /* FIXED BUG MODULE: Restored the global master syllabus data array definitions to clear reference errors hamesha ke liye */
         const MASTER_SYLLABUS_DATA_DICTIONARY = {
             "QA": [
                 "Percentage & Successive Fractions", "Profit, Loss & Discount Arrays", "Ratio, Proportion & Mixture Alligations",
@@ -595,25 +546,19 @@
             ]
         };
 
-        // FIXED METHOD: Swapped frozen select properties elements layout for reactive dropdown adjustment loops
-        function adaptScientificPomodoroRecommendation() {
-            const dropdownSelectorNode = document.getElementById('pomodoro-subject-dropdown');
-            if(!dropdownSelectorNode) return;
-            
-            const selectedSubjectKeyName = dropdownSelectorNode.value;
-            const contextRuleProfileMatch = scientificPomodoroRulesEngineMatrix[selectedSubjectKeyName] || { rec: "🎯 Focus block initialized. Maintain target discipline.", time: "25" };
-            
-            document.getElementById('scientific-rec').innerHTML = contextRuleProfileMatch.rec;
-            document.getElementById('pomodoro-session-selector').value = contextRuleProfileMatch.time;
-            
-            const minutesToRenderInt = parseInt(contextRuleProfileMatch.time);
-            document.getElementById('timer-display-minutes').innerText = minutesToRenderInt.toString().padStart(2, '0');
-            document.getElementById('timer-display-seconds').innerText = "00";
-            
-            if(localStorage.getItem('pomodoro_engine_runtime_state') !== 'RUNNING') {
-                localStorage.setItem('pomodoro_seconds_counter_remaining', (minutesToRenderInt * 60).toString());
-            }
-        }
+        const scientificPomodoroRulesEngineMatrix = {
+            "Quantitative Aptitude": { rec: "🧠 <b>Quant System:</b> Deep analytical logic chains require high-level cognitive stability loops. Apps recommend <b>60 Mins Hyperfocus / 15 Mins Break</b> slabs to protect formulas mapping.", time: "60" },
+            "English Language": { rec: "⚡ <b>English Language:</b> Error spotting matrices and denses high-frequency vocab rules are memory dependent. Recommended balance is <b>45 Mins Focus / 10 Mins Break</b> blocks.", time: "45" },
+            "Reasoning Intelligence": { rec: "🧩 <b>Reasoning Intelligence:</b> Matrix diagnostics checks and tree relations work best in deep flow states. Standard profile uses <b>45 Mins Focus / 10 Mins Break</b> intervals.", time: "45" },
+            "General Awareness": { rec: "⏱️ <b>General Awareness:</b> Memory retention for Static GK Capsules and editorial logs behavior operates finest in short sprints: <b>25 Mins Focus / 5 Mins Break</b>.", time: "25" },
+            "Current Affairs": { rec: "📰 <b>Current Affairs Sprints:</b> Fast dynamic text digestion blocks respond highly efficiently to quick bursts. Recommended standard is <b>25 Mins Focus / 5 Mins Break</b> cycles.", time: "25" },
+            "Newspaper Analysis": { rec: "📑 <b>Newspaper Reading:</b> Editorial scanning behaves perfectly across rapid tracking cycles. Standard apps advice <b>25 Mins Sprint / 5 Mins Break</b>.", time: "25" },
+            "Book Reading": { rec: "📖 <b>Textbook Slabs:</b> Constant reading cycles maintain supreme momentum inside standard focus blocks: <b>30 Mins Focus / 5 Mins Break</b>.", time: "30" },
+            "Calculation Practice": { rec: "🔢 <b>Calculation Drills:</b> Daily speed mathematics table drills execute cleanly inside compact intervals: <b>25 Mins Sprint / 5 Mins Break</b>.", time: "25" },
+            "Formula Revision": { rec: "📐 <b>Formula Log Frameworks:</b> Fast memory triggers revision loops work elegantly across <b>25 Mins Sprint / 5 Mins Break</b> intervals.", time: "25" },
+            "Vocabulary Building": { rec: "📕 <b>Vocab Tracking Cards:</b> Repetitive memorization curves optimize flawlessly inside shorter target bursts: <b>25 Mins Sprint / 5 Mins Break</b>.", time: "25" },
+            "Mocks Engineering": { rec: "🏆 <b>Assessment Deck:</b> Sectional mocks or composite multi-subject sheets require un-interrupted marathon hyperfocus blocks: <b>60 Mins Extreme focus / 15 Mins Rest</b>.", time: "60" }
+        };
 
         function cleanSlateCanvasElementContext(canvasElementId) {
             const currentElement = document.getElementById(canvasElementId);
@@ -663,7 +608,7 @@
             });
 
             const sortedMocks = [...mockSheetsLogsArray].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-            const mockLabels = sortedMocks.map((mock, idx) => mock.name || `Mock #${idx + 1}`);
+            const mockLabels = sortedMocks.map((mock, idx) => mock.mock_name || mock.name || `Mock #${idx + 1}`);
             const mockPercentages = sortedMocks.map(mock => {
                 const total = parseInt(mock.total || 0);
                 return total > 0 ? Math.round((parseInt(mock.score || 0) / total) * 100) : 0;
@@ -774,7 +719,6 @@
                 stats[key] = { avg, trend, trendIcon, verdict, count: percs.length, best: Math.max(...percs), worst: Math.min(...percs) };
             });
 
-            // COMPONENT OVERLAY REBUILD FOR CROSS USER RADAR MATRIX COMPILATION
             triggerRadarChartAggregationMatrix(mockSheetsLogsArray);
 
             const grid = document.getElementById('subject-performance-cards-grid');
@@ -814,7 +758,6 @@
             }).join('');
         }
 
-        // FIXED METHOD FEATURE: Dynamic multi color multi user radar logic block compilation loops
         function triggerRadarChartAggregationMatrix(mockSheetsLogsArray) {
             const activeProfileName = localStorage.getItem('ssc_user_profile_name') || 'Warrior';
             const isDarkActive = document.documentElement.dataset.theme === 'dark';
@@ -891,6 +834,25 @@
                     plugins: { legend: { position: 'top', labels: { color: isDarkActive ? '#f8fafc' : '#0f172a', font: { weight: '600' } } } }
                 }
             });
+        }
+
+        function adaptScientificPomodoroRecommendation() {
+            const dropdownSelectorNode = document.getElementById('pomodoro-subject-dropdown');
+            if(!dropdownSelectorNode) return;
+            
+            const selectedSubjectKeyName = dropdownSelectorNode.value;
+            const contextRuleProfileMatch = scientificPomodoroRulesEngineMatrix[selectedSubjectKeyName] || { rec: "🎯 Focus block initialized. Maintain target discipline.", time: "25" };
+            
+            document.getElementById('scientific-rec').innerHTML = contextRuleProfileMatch.rec;
+            document.getElementById('pomodoro-session-selector').value = contextRuleProfileMatch.time;
+            
+            const minutesToRenderInt = parseInt(contextRuleProfileMatch.time);
+            document.getElementById('timer-display-minutes').innerText = minutesToRenderInt.toString().padStart(2, '0');
+            document.getElementById('timer-display-seconds').innerText = "00";
+            
+            if(localStorage.getItem('pomodoro_engine_runtime_state') !== 'RUNNING') {
+                localStorage.setItem('pomodoro_seconds_counter_remaining', (minutesToRenderInt * 60).toString());
+            }
         }
 
         function switchNavigationRouteTab(targetTabId) {
@@ -979,7 +941,7 @@
                     soundOscillatorNode.stop(schedulingOffsetTime + 0.18);
                 }
             } catch (err) {
-                console.error("Autoplay browser audio security engine check catch:", err?.message || err?.details || JSON.stringify(err));
+                console.error("Autoplay safety exception context catch:", err);
             }
         }
 
@@ -1092,8 +1054,7 @@
                             throw error;
                         }
                     } catch (err) {
-                        console.error("Cloud database write stream failed:", err?.message || err?.details || JSON.stringify(err));
-                        toastNotificationPopup("Database push offline.", "error");
+                        console.error("Cloud focus storage exception:", err);
                     }
                 }
 
@@ -1164,11 +1125,8 @@
                         toastNotificationPopup(`✅ ${elapsedMinutes} min logged for ${subject}!`);
                     } else { throw error; }
                 } catch (err) {
-                    console.error("Early submit cloud write failed:", err?.message || err?.details || JSON.stringify(err));
-                    toastNotificationPopup("Database push offline.", "error");
+                    console.error("Early submit fail:", err);
                 }
-            } else {
-                toastNotificationPopup(`✅ ${elapsedMinutes} min session recorded locally.`);
             }
 
             let totalStreaks = parseInt(localStorage.getItem('pomodoro_completed_streaks_index') || '0') + 1;
@@ -1245,7 +1203,6 @@
                 if (error) throw error;
                 return data.map(item => item.subject_name);
             } catch (err) {
-                console.error("Failed to load cloud custom subjects:", err?.message || err?.details || JSON.stringify(err));
                 return [];
             }
         }
@@ -1285,12 +1242,10 @@
                 try {
                     const { error } = await supabaseClient.from('custom_subjects').insert([{ subject_name: sanitizedSubjectText }]);
                     if (error) throw error;
-                    toastNotificationPopup(`Domain Subject [${sanitizedSubjectText}] pushed to cloud successfully.`);
+                    toastNotificationPopup(`Domain Subject [${sanitizedSubjectText}] pushed successfully.`);
                     rawInputField.value = '';
                     await populateSubjectsInterfaceDropdowns();
-                    adaptScientificPomodoroRecommendation();
                 } catch (err) {
-                    console.error("Failed to save cloud subject:", err?.message || err?.details || JSON.stringify(err));
                     toastNotificationPopup("Failed to store custom subject on cloud.", "error");
                 }
             }
@@ -1480,6 +1435,7 @@
                 try {
                     const insertPayload = {
                         user_name: currentActiveUserProfile,
+                        mock_name: sanitizedMockReferenceTitle,
                         name: sanitizedMockReferenceTitle,
                         subject: activeExaminationTier, 
                         score: calcMetrics.earned,
@@ -1505,7 +1461,6 @@
                         throw error;
                     }
                 } catch (err) {
-                    console.error("Supabase mock logging transaction failure:", err?.message || err?.details || JSON.stringify(err));
                     toastNotificationPopup("Database transaction crash.", "error");
                 }
             }
@@ -1528,7 +1483,6 @@
                         throw error;
                     }
                 } catch (err) {
-                    console.error("Cascade deletion processing error pipeline:", err?.message || err?.details || JSON.stringify(err));
                     toastNotificationPopup("Deletion rejected by database firewall.", "error");
                 }
             }
@@ -1549,7 +1503,6 @@
                 });
                 return mapping;
             } catch (err) {
-                console.error("Failed to load cloud topics status:", err?.message || err?.details || JSON.stringify(err));
                 return {};
             }
         }
@@ -1574,7 +1527,6 @@
                 }
                 await renderSyllabusMilestonesChecklistInterface();
             } catch (err) {
-                console.error("Failed to update topic state on cloud:", err?.message || err?.details || JSON.stringify(err));
                 toastNotificationPopup("Failed to update topic preference.", "error");
             }
         }
@@ -1637,11 +1589,11 @@
                     if (activeStateValue === 'DONE') totalCompletedDoneCount++;
 
                     let blockBgStyleColor = "syllabus-topic-row";
-                    if (activeStateValue === 'DONE') blockBgStyleColor = "syllabus-topic-row done";
+                    if (activeStateValue === 'DONE') blockBgStyleColor = "syllabus-topic-row done text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50/50 dark:bg-emerald-950/20";
 
                     const safeTopicName = topicName.replace(/'/g, "\'");
                     markupHTMLBuffer += `
-                        <div class="flex items-center justify-between p-2.5 rounded-xl text-xs font-medium transition-colors border border-[var(--border-ui)] ${blockBgStyleColor}" style="color:var(--text-main)">
+                        <div class="flex items-center justify-between p-2.5 rounded-xl text-xs font-medium transition-colors border border border-[var(--border-ui)] ${blockBgStyleColor}" style="color:var(--text-main)">
                             <span class="flex-1 pr-2 tracking-wide">${topicName}</span>
                             <div class="flex items-center gap-1.5 shrink-0">
                                 <button onclick="toggleSyllabusTopicCheckboxState('${categoryKey}', '${safeTopicName}', '${activeStateValue}')" class="px-2 py-1 rounded bg-[var(--bg-card)] border border-[var(--border-ui)] font-bold text-[10px] uppercase hover:border-indigo-500 cursor-pointer transition-all duration-150">${activeStateValue === 'DONE' ? '✅ Done' : 'Mark Done'}</button>
@@ -1710,7 +1662,6 @@
                 auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
                 global: { fetch: (...args) => fetch(...args) }
             });
-            toastNotificationPopup("Authorization link secure. Connecting cloud server workspace.");
             
             await populateSubjectsInterfaceDropdowns();
             adaptScientificPomodoroRecommendation();
@@ -1718,7 +1669,7 @@
             await renderSyllabusMilestonesChecklistInterface();
             establishRealtimeReplicationSubscriptionBroker();
             fetchAndRenderLiveUsers();
-            setInterval(fetchAndRenderLiveUsers, 60000); 
+            setInterval(fetchAndRenderLiveUsers, 15000); 
         }
 
         async function triggerMasterDatabaseSynchronizationRefresh() {
@@ -1743,15 +1694,13 @@
 
                 let dailyAccumulatedMinutesYourself = 0;
                 let dailyAccumulatedMinutesBuddyPeer = 0;
-                let activeBuddyIdentityName = localStorage.getItem('ssc_buddy_profile_name') || '—';
+                let activeBuddyIdentityName = 'RG';
 
-                // FIXED PARAMS: Clean multi-user segmented views tables definitions
-                const myStudyTableBody = document.getElementById('table-body-my-focus-sessions-logs');
-                const peerStudyTableBody = document.getElementById('table-body-peer-focus-sessions-logs');
+                const myStudyTableBody = document.getElementById('table-body-my-sessions-logs');
+                const peerStudyTableBody = document.getElementById('table-body-peer-sessions-logs');
                 const myMocksTableBody = document.getElementById('table-body-my-mocks-logs');
                 const peerMocksTableBody = document.getElementById('table-body-peer-mocks-logs');
 
-                // Clean slate tables generation
                 if(myStudyTableBody) myStudyTableBody.innerHTML = '';
                 if(peerStudyTableBody) peerStudyTableBody.innerHTML = '';
                 if(myMocksTableBody) myMocksTableBody.innerHTML = '';
@@ -1768,7 +1717,7 @@
                                 myStudyTableBody.innerHTML += `
                                     <tr class="row-mine border-b border-[var(--border-ui)]">
                                         <td class="p-2 text-slate-400 font-mono">${timestampLocalDate}</td>
-                                        <td class="p-2"><span class="px-2 py-0.5 rounded text-[10px] font-black text-white" style="background-color: ${SUBJECTS_CORE_PALETTE[sessionRow.subject_name] || '#64748b'}">${sessionRow.subject_name}</span></td>
+                                        <td class="p-2"><span class="px-2 py-0.5 rounded text-[10px] font-black text-white" style="background-color: ${SUBJECTS_CORE_PALETTE[sessionRow.subject_name] || '#64748b'}">${sessionRow.subject_name || 'General'}</span></td>
                                         <td class="p-2 font-bold tabular-nums">${rowDurationInt}m</td>
                                         <td class="p-2 text-right"><button onclick="executeRecordDeletionSequencePipeline('sessions', '${sessionRow.id}')" class="text-rose-500 font-bold cursor-pointer text-[13px]">🗑️</button></td>
                                     </tr>
@@ -1776,12 +1725,12 @@
                             }
                         } else {
                             dailyAccumulatedMinutesBuddyPeer += rowDurationInt;
-                            if(sessionRow.user_name === 'RG' || dailyAccumulatedMinutesBuddyPeer === rowDurationInt) activeBuddyIdentityName = sessionRow.user_name;
+                            activeBuddyIdentityName = sessionRow.user_name;
                             if(peerStudyTableBody) {
                                 peerStudyTableBody.innerHTML += `
                                     <tr class="row-peer border-b border-[var(--border-ui)]">
                                         <td class="p-2 font-black text-rose-500">${sessionRow.user_name}</td>
-                                        <td class="p-2"><span class="px-2 py-0.5 rounded text-[10px] font-black text-white" style="background-color: ${SUBJECTS_CORE_PALETTE[sessionRow.subject_name] || '#64748b'}">${sessionRow.subject_name}</span></td>
+                                        <td class="p-2"><span class="px-2 py-0.5 rounded text-[10px] font-black text-white" style="background-color: ${SUBJECTS_CORE_PALETTE[sessionRow.subject_name] || '#64748b'}">${sessionRow.subject_name || 'General'}</span></td>
                                         <td class="p-2 font-bold tabular-nums">${rowDurationInt}m</td>
                                     </tr>
                                 `;
@@ -1797,7 +1746,7 @@
                 const statusBoxText = document.getElementById('versus-battle-status-alert');
                 if (dailyAccumulatedMinutesYourself > dailyAccumulatedMinutesBuddyPeer) {
                     const leadDiff = dailyAccumulatedMinutesYourself - dailyAccumulatedMinutesBuddyPeer;
-                    statusBoxText.innerText = `🔥 You are leading by ${Math.floor(leadDiff/60)}h ${(leadDiff%60).toString().padStart(2,'0')}m! Keep it up 💪`;
+                    statusBoxText.innerText = `🔥 You are leading by ${Math.floor(leadDiff/60)}h ${(leadDiff%60).toString().padStart(2,'0')}m! Keep it up Warrior 💪`;
                 } else if (dailyAccumulatedMinutesBuddyPeer > dailyAccumulatedMinutesYourself) {
                     const behindDiff = dailyAccumulatedMinutesBuddyPeer - dailyAccumulatedMinutesYourself;
                     statusBoxText.innerText = `⚠️ ${activeBuddyIdentityName} leads by ${Math.floor(behindDiff/60)}h ${(behindDiff%60).toString().padStart(2,'0')}m. Push harder!`;
@@ -1812,14 +1761,15 @@
                     mockLogsData.forEach(mockRow => {
                         const rowPercentScore = mockRow.total > 0 ? Math.round((mockRow.score / mockRow.total) * 100) : 0;
                         const performanceBadgeColorStyle = rowPercentScore >= 78 ? "bg-emerald-100 text-emerald-700 border border-emerald-200" : "bg-indigo-100 text-indigo-700 border border-indigo-200";
-                        
+                        const computedMockTitleReference = mockRow.mock_name || mockRow.name || "Assessment Test";
+
                         if(mockRow.user_name === activeUserNameText) {
                             if(myMocksTableBody) {
                                 myMocksTableBody.innerHTML += `
                                     <tr class="row-mine border-b border-[var(--border-ui)]">
-                                        <td class="py-2 px-2 font-bold">${mockRow.name}</td>
-                                        <td class="py-2 px-2"><span class="px-1.5 py-0.5 bg-slate-200 rounded text-[10px] font-black">${mockRow.subject}</span></td>
-                                        <td class="py-2 px-2 font-mono text-[10px] text-slate-400">QA:${mockRow.qa_score}|GI:${mockRow.gi_score}|EL:${mockRow.el_score}|GA:${mockRow.ga_score}</td>
+                                        <td class="py-2 px-2 font-bold">${computedMockTitleReference}</td>
+                                        <td class="py-2 px-2"><span class="px-1.5 py-0.5 bg-slate-200 rounded text-[10px] font-black">${mockRow.subject || 'Mock'}</span></td>
+                                        <td class="py-2 px-2 font-mono text-[10px] text-slate-400">QA:${mockRow.qa_score || 0}|GI:${mockRow.gi_score || 0}|EL:${mockRow.el_score || 0}|GA:${mockRow.ga_score || 0}</td>
                                         <td class="py-2 px-2"><span class="px-2 py-0.5 rounded-lg text-xs font-black ${performanceBadgeColorStyle}">${mockRow.score}/${mockRow.total} (${rowPercentScore}%)</span></td>
                                         <td class="py-2 px-2 text-right"><button onclick="executeRecordDeletionSequencePipeline('mock_tests', '${mockRow.id}')" class="text-rose-500 font-bold cursor-pointer text-[13px]">🗑️</button></td>
                                     </tr>
@@ -1829,10 +1779,10 @@
                             if(peerMocksTableBody) {
                                 peerMocksTableBody.innerHTML += `
                                     <tr class="row-peer border-b border-[var(--border-ui)]">
-                                        <td class="py-2 px-2 font-bold">${mockRow.name}</td>
+                                        <td class="py-2 px-2 font-bold">${computedMockTitleReference}</td>
                                         <td class="py-2 px-2 font-semibold text-rose-500">${mockRow.user_name}</td>
-                                        <td class="py-2 px-2"><span class="px-1.5 py-0.5 bg-slate-200 rounded text-[10px] font-black">${mockRow.subject}</span></td>
-                                        <td class="py-2 px-2 font-mono text-[10px] text-slate-400">QA:${mockRow.qa_score}|GI:${mockRow.gi_score}|EL:${mockRow.el_score}|GA:${mockRow.ga_score}</td>
+                                        <td class="py-2 px-2"><span class="px-1.5 py-0.5 bg-slate-200 rounded text-[10px] font-black">${mockRow.subject || 'Mock'}</span></td>
+                                        <td class="py-2 px-2 font-mono text-[10px] text-slate-400">QA:${mockRow.qa_score || 0}|GI:${mockRow.gi_score || 0}|EL:${mockRow.el_score || 0}|GA:${mockRow.ga_score || 0}</td>
                                         <td class="py-2 px-2"><span class="px-2 py-0.5 rounded-lg text-xs font-black ${performanceBadgeColorStyle}">${mockRow.score}/${mockRow.total} (${rowPercentScore}%)</span></td>
                                     </tr>
                                 `;
@@ -1841,7 +1791,7 @@
                     });
                 }
 
-                recomputeAndRenderDashboardCharts(studyLogsData.filter(s => s.user_name === activeUserNameText), mockLogsData.filter(m => m.user_name === activeUserNameText));
+                recomputeAndRenderDashboardCharts(studyLogsData.filter(s => s.user_name === activeUserNameText), mockLogsData.filter(m => m.mock_name === activeUserNameText || m.user_name === activeUserNameText));
 
             } catch (error) {
                 console.error("Master dashboard refresh loop exception encountered:", error);
@@ -1867,7 +1817,7 @@
                         current_subject: subject,
                         last_active_tick: new Date().toISOString()
                     }], { onConflict: 'user_name' });
-                } catch(e) { /* silent catch to ensure timer continuity */ }
+                } catch(e) { }
             }, 60000);
         }
 
@@ -1924,118 +1874,10 @@
         let currentEditRecordId = null;
         let currentEditTableName = null;
 
-        function openEditSessionModal(row) {
-            currentEditRecordId = row.id;
-            currentEditTableName = 'sessions';
-            document.getElementById('edit-modal-title').innerText = '✏️ Edit Study Session';
-            document.getElementById('edit-modal-fields').innerHTML = `
-                <div>
-                    <label class="text-xs font-bold uppercase text-[var(--text-muted)] block mb-1">Subject</label>
-                    <select id="edit-field-subject" class="w-full p-2.5 rounded-lg ui-input text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        ${Object.keys(SUBJECTS_CORE_PALETTE).map(s => `<option value="${s}" ${(row.subject_name||row.subject)===s?'selected':''}>${s}</option>`).join('')}
-                    </select>
-                </div>
-                <div>
-                    <label class="text-xs font-bold uppercase text-[var(--text-muted)] block mb-1">Duration (minutes)</label>
-                    <input id="edit-field-duration" type="number" min="1" max="480" value="${row.duration}"
-                        class="w-full p-2.5 rounded-lg ui-input text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-                <div>
-                    <label class="text-xs font-bold uppercase text-[var(--text-muted)] block mb-1">Note (optional)</label>
-                    <input id="edit-field-note" type="text" value="${row.note || ''}" placeholder="e.g. Algebra revision"
-                        class="w-full p-2.5 rounded-lg ui-input text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-            `;
-            document.getElementById('edit-record-modal-shroud').classList.remove('hidden');
-        }
-
-        function openEditMockModal(row) {
-            currentEditRecordId = row.id;
-            currentEditTableName = 'mock_tests';
-            const tier = row.subject || 'T1';
-            const maxMap = { T1: {qa:50,gi:50,el:50,ga:50}, T2: {qa:90,gi:90,el:135,ga:75}, SEC: {qa:50,gi:50,el:50,ga:50} };
-            const maxes = maxMap[tier] || maxMap.T1;
-            document.getElementById('edit-modal-title').innerText = '✏️ Edit Mock Test';
-            document.getElementById('edit-modal-fields').innerHTML = `
-                <div>
-                    <label class="text-xs font-bold uppercase text-[var(--text-muted)] block mb-1">Mock Name</label>
-                    <input id="edit-field-name" type="text" value="${row.name || ''}"
-                        class="w-full p-2.5 rounded-lg ui-input text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    ${['qa','gi','el','ga'].map(s => `
-                    <div>
-                        <label class="text-[10px] font-bold uppercase text-[var(--text-muted)] block mb-1">${s.toUpperCase()} <span class="text-[9px]">/ ${maxes[s]}</span></label>
-                        <input id="edit-field-${s}" type="number" min="0" max="${maxes[s]}" value="${row[s+'_score'] || 0}"
-                            oninput="clampMockInput(this,maxes[s])"
-                            class="w-full p-2 rounded-lg ui-input text-sm font-bold text-center focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    </div>`).join('')}
-                </div>
-                ${tier === 'T2' ? `
-                <div class="flex items-center justify-between p-2 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200">
-                    <span class="text-xs font-bold text-amber-700 dark:text-amber-400">Computer Knowledge (Qualifying)</span>
-                    <div class="flex gap-2">
-                        <button id="edit-cs-pass" onclick="setEditCSQual('PASS')" class="px-3 py-1 rounded text-[10px] font-black uppercase ${row.cs_qualifying !== 'FAIL' ? 'bg-emerald-500 text-white border-emerald-500' : 'border border-[var(--border-ui)] text-[var(--text-muted)]'} cursor-pointer">Pass</button>
-                        <button id="edit-cs-fail" onclick="setEditCSQual('FAIL')" class="px-3 py-1 rounded text-[10px] font-black uppercase ${row.cs_qualifying === 'FAIL' ? 'bg-red-500 text-white border-red-500' : 'border border-[var(--border-ui)] text-[var(--text-muted)]'} cursor-pointer">Fail</button>
-                    </div>
-                </div>` : ''}
-            `;
-            document.getElementById('edit-record-modal-shroud').classList.remove('hidden');
-        }
-
-        let editCSQualState = 'PASS';
-        function setEditCSQual(state) {
-            editCSQualState = state;
-            const p = document.getElementById('edit-cs-pass');
-            const f = document.getElementById('edit-cs-fail');
-            if (!p || !f) return;
-            p.className = `px-3 py-1 rounded text-[10px] font-black uppercase cursor-pointer ${state === 'PASS' ? 'bg-emerald-500 text-white' : 'border border-[var(--border-ui)] text-[var(--text-muted)]'}`;
-            f.className = `px-3 py-1 rounded text-[10px] font-black uppercase cursor-pointer ${state === 'FAIL' ? 'bg-red-500 text-white' : 'border border-[var(--border-ui)] text-[var(--text-muted)]'}`;
-        }
-
         function closeEditModal() {
             document.getElementById('edit-record-modal-shroud').classList.add('hidden');
             currentEditRecordId = null;
             currentEditTableName = null;
-        }
-
-        async function saveEditedRecord() {
-            if (!supabaseClient || !currentEditRecordId || !currentEditTableName) return;
-            try {
-                let updatePayload = {};
-                if (currentEditTableName === 'sessions') {
-                    const dur = parseInt(document.getElementById('edit-field-duration').value);
-                    if (isNaN(dur) || dur < 1) { toastNotificationPopup("Duration must be at least 1 minute.", "error"); return; }
-                    updatePayload = {
-                        subject: document.getElementById('edit-field-subject').value,
-                        subject_name: document.getElementById('edit-field-subject').value,
-                        duration: dur,
-                        note: document.getElementById('edit-field-note').value
-                    };
-                } else {
-                    const qa = parseInt(document.getElementById('edit-field-qa').value) || 0;
-                    const gi = parseInt(document.getElementById('edit-field-gi').value) || 0;
-                    const el = parseInt(document.getElementById('edit-field-el').value) || 0;
-                    const ga = parseInt(document.getElementById('edit-field-ga').value) || 0;
-                    updatePayload = {
-                        name: document.getElementById('edit-field-name').value,
-                        qa_score: qa, gi_score: gi, el_score: el, ga_score: ga,
-                        score: qa + gi + el + ga,
-                        cs_qualifying: editCSQualState
-                    };
-                }
-                const { error } = await supabaseClient
-                    .from(currentEditTableName)
-                    .update(updatePayload)
-                    .eq('id', currentEditRecordId);
-                if (error) throw error;
-                toastNotificationPopup("✅ Record updated successfully!");
-                closeEditModal();
-                await triggerMasterDatabaseSynchronizationRefresh();
-            } catch (err) {
-                console.error("Edit save failed:", err?.message || JSON.stringify(err));
-                toastNotificationPopup("Failed to save changes.", "error");
-            }
         }
 
         window.addEventListener('DOMContentLoaded', () => {

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC CGL Top 500 Focus Tracker & Sync Arena</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen antialiased pb-24">
+
+    <header class="w-full border-b border-[var(--border-ui)] bg-[var(--bg-card)] sticky top-0 z-40 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-md">
+                    <span class="text-white font-black text-xl">🚀</span>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-[var(--text-main)]">WARRIORS ARENA</h1>
+                    <p class="text-xs text-[var(--text-muted)]">Target CGL Top 500 Blueprint Matrix</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <div id="active-profile-identity-banner" class="hidden text-sm font-semibold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-3 py-1.5 rounded-lg border border-indigo-100 dark:border-indigo-900/60">
+                    Logged as: <span id="identity-visual-name-anchor" class="font-black">User</span>
+                </div>
+                <button id="btn-global-logout-trigger" class="hidden px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white text-xs font-black uppercase rounded-lg shadow-md transition-all duration-150 cursor-pointer">Log Out</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 mt-6 app-container">
+        
+        <div class="nav-tabs-scroll flex gap-2 border-b border-[var(--border-ui)] mb-6">
+            <button id="tab-btn-dashboard" class="px-5 py-3 font-bold text-sm border-b-2 border-indigo-600 text-indigo-600 transition-all duration-200 cursor-pointer">📊 Performance Matrix</button>
+            <button id="tab-btn-timer" class="px-5 py-3 font-bold text-sm border-b-2 border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)] transition-all duration-200 cursor-pointer">⏱️ Deep Focus Timer</button>
+            <button id="tab-btn-mocks" class="px-5 py-3 font-bold text-sm border-b-2 border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)] transition-all duration-200 cursor-pointer">📝 Split Score Logger</button>
+            <button id="tab-btn-syllabus" class="px-5 py-3 font-bold text-sm border-b-2 border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)] transition-all duration-200 cursor-pointer">📚 Target Syllabus</button>
+        </div>
+
+        <div id="view-panel-dashboard" class="space-y-6 block">
+            <div class="custom-card p-6 border-l-4 border-indigo-500">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-base font-black text-[var(--text-muted)] tracking-wider uppercase">⚔️ Live Synchronized Battlegrounds</h3>
+                    <span class="flex h-2.5 w-2.5 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                </div>
+                
+                <div class="versus-flex-frame flex items-center justify-between gap-6 py-2">
+                    <div class="versus-player-card flex-1 p-4 rounded-xl border border-[var(--border-ui)]" style="background-color:var(--bg-primary)">
+                        <p class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest">You (Focus Core)</p>
+                        <h4 id="identity-your-live-name" class="text-lg font-black mt-0.5 text-indigo-500">Warrior</h4>
+                        <div id="versus-your-time-display" class="text-3xl font-black tracking-tight mt-2 text-[var(--text-main)]">0h 00m</div>
+                    </div>
+                    <div class="text-center font-black text-xl text-slate-400 select-none">VS</div>
+                    <div class="versus-player-card flex-1 p-4 rounded-xl border border-[var(--border-ui)] text-right" style="background-color:var(--bg-primary)">
+                        <p class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest">Study Buddy</p>
+                        <h4 id="identity-buddy-live-name" class="text-lg font-black mt-0.5 text-rose-500">—</h4>
+                        <div id="versus-buddy-time-display" class="text-3xl font-black tracking-tight mt-2 text-[var(--text-main)]">0h 00m</div>
+                    </div>
+                </div>
+                <div id="versus-battle-status-alert" class="mt-4 text-center text-sm font-bold bg-slate-100 dark:bg-slate-800/60 py-2 rounded-lg text-[var(--text-main)]">
+                    🤝 Establish cloud tracking connection credentials vectors to parse analytics.
+                </div>
+            </div>
+
+            <div id="live-users-panel" class="custom-card p-4 border-l-4 border-emerald-500 hidden">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="flex h-2.5 w-2.5 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span></span>
+                    <h3 class="text-sm font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">🟢 Who is Studying Right Now</h3>
+                </div>
+                <div id="live-users-list" class="flex flex-wrap gap-2 text-xs font-bold text-[var(--text-muted)]">
+                    <span>Checking...</span>
+                </div>
+            </div>
+
+            <div class="dashboard-grid grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="custom-card p-6">
+                    <p class="text-xs font-black text-[var(--text-muted)] tracking-wider uppercase">📐 Today's Cumulative Study Volume</p>
+                    <h3 id="stat-metrics-total-study-hours" class="text-4xl font-black tracking-tight mt-2 text-indigo-600 dark:text-indigo-400">0h 00m</h3>
+                    <p class="text-xs mt-1 text-[var(--text-muted)]">Real-time sessions logs aggregate computation scale.</p>
+                </div>
+                <div class="custom-card p-6">
+                    <p class="text-xs font-black text-[var(--text-muted)] tracking-wider uppercase">🏆 Total Mock Tests Executed</p>
+                    <h3 id="stat-metrics-mock-count-index" class="text-4xl font-black tracking-tight mt-2 text-emerald-600 dark:text-emerald-400">0</h3>
+                    <p class="text-xs mt-1 text-[var(--text-muted)]">Tier 1 & Tier 2 single page multi-subject records.</p>
+                </div>
+                <div class="custom-card p-6">
+                    <p class="text-xs font-black text-[var(--text-muted)] tracking-wider uppercase">🎯 Syllabus Milestone Progress</p>
+                    <h3 id="stat-metrics-syllabus-percent-display" class="text-4xl font-black tracking-tight mt-2 text-amber-600 dark:text-amber-400">0%</h3>
+                    <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full mt-3 overflow-hidden">
+                        <div id="stat-metrics-syllabus-progress-bar" class="bg-amber-500 h-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="custom-card p-6 flex flex-col">
+                    <h4 class="text-sm font-bold mb-4 uppercase tracking-widest text-[var(--text-muted)]">Subject Allocation Volumetric Timeline</h4>
+                    <div class="flex-1 min-h-[280px] flex items-center justify-center relative">
+                        <canvas id="canvas-analytics-study-allocation-chart"></canvas>
+                    </div>
+                </div>
+                <div class="custom-card p-6 flex flex-col">
+                    <h4 class="text-sm font-bold mb-4 uppercase tracking-widest text-[var(--text-muted)]">Mock Assessment Growth Curve (Target Line 78%)</h4>
+                    <div class="flex-1 min-h-[280px] flex items-center justify-center relative">
+                        <canvas id="canvas-analytics-mock-trajectory-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="custom-card p-6">
+                <div class="flex items-center justify-between mb-4 border-b border-[var(--border-ui)] pb-3">
+                    <div>
+                        <h4 class="text-sm font-black uppercase tracking-widest text-[var(--text-muted)]">📡 Cross-User Assessment Radar Analytics Feed (Distinct Colours)</h4>
+                        <p class="text-xs text-[var(--text-muted)] mt-0.5">Compares dynamic normalized average efficiencies side-by-side across all active user entities entries seamlessly.</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 dashboard-grid">
+                    <div class="flex flex-col">
+                        <h5 class="text-xs font-bold uppercase text-[var(--text-muted)] mb-3 tracking-widest">📡 Radar — Performance by Subject</h5>
+                        <div class="flex-1 min-h-[260px] flex items-center justify-center">
+                            <canvas id="canvas-subject-radar-chart"></canvas>
+                        </div>
+                    </div>
+                    <div id="subject-performance-cards-grid" class="grid grid-cols-2 gap-3 content-start">
+                        <div class="col-span-2 text-xs text-[var(--text-muted)] text-center py-8">No mock data yet. Submit a mock to see performance.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-panel-timer" class="space-y-6 hidden">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 dashboard-grid">
+                <div class="custom-card p-6 space-y-4">
+                    <h3 class="text-base font-black border-b border-[var(--border-ui)] pb-2">⚙️ Calibration Parameters</h3>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-[var(--text-muted)] mb-1">Active Target Domain Subject</label>
+                        <select id="pomodoro-subject-dropdown" class="w-full p-2.5 rounded-lg ui-input font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"></select>
+                    </div>
+                    <div id="scientific-rec" class="rec-box">💡 Loading target behavioral metric guidelines...</div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-[var(--text-muted)] mb-1">Choose Focus Session Time</label>
+                        <select id="pomodoro-session-selector" class="w-full p-2.5 rounded-lg ui-input font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+                            <option value="25" selected>25 Minutes (Standard Pomodoro)</option>
+                            <option value="30">30 Minutes (Deep Focus Cycle)</option>
+                            <option value="35">35 Minutes</option>
+                            <option value="40">40 Minutes</option>
+                            <option value="45">45 Minutes (Advanced Power Block)</option>
+                            <option value="50">50 Minutes</option>
+                            <option value="55">55 Minutes</option>
+                            <option value="60">60 Minutes (Extreme Hyperfocus)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-[var(--text-muted)] mb-1">Long Break Trigger Threshold</label>
+                        <select id="pomodoro-long-break-trigger" class="w-full p-2.5 rounded-lg ui-input font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+                            <option value="0">No Long Break (Continuous)</option>
+                            <option value="3">After 3 Cycles (Intense Mode)</option>
+                            <option value="4" selected>After 4 Cycles (Standard Block)</option>
+                            <option value="6">After 6 Cycles (Marathon Mode)</option>
+                        </select>
+                    </div>
+                    <div class="pt-2 border-t border-[var(--border-ui)]">
+                        <label class="block text-xs font-bold uppercase text-[var(--text-muted)] mb-1">➕ Add Custom Domain Subject</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="input-custom-subject-name" placeholder="e.g., Static GK Capsule" class="flex-1 p-2 rounded-lg ui-input text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                            <button id="btn-add-custom-subject" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold text-sm cursor-pointer transition-colors duration-150">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-card p-6 md:col-span-2 flex flex-col items-center justify-center text-center space-y-6 min-h-[380px] relative overflow-hidden">
+                    <div id="pomodoro-state-badge" class="px-4 py-1.5 rounded-full text-xs font-black bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900 uppercase tracking-widest animate-pulse">🎯 FOCUS ENGINE READY</div>
+                    <div class="timer-display-digits text-6xl md:text-7xl font-black font-mono tracking-tight tabular-nums text-[var(--text-main)]">
+                        <span id="timer-display-minutes">25</span>:<span id="timer-display-seconds">00</span>
+                    </div>
+                    <div class="flex items-center gap-3 w-full max-w-xs flex-wrap">
+                        <button id="btn-pomodoro-primary-toggle" class="flex-1 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl text-sm transition-all duration-150 shadow-md cursor-pointer uppercase tracking-wider">Start Block</button>
+                        <button id="btn-pomodoro-reset-kill" class="px-4 py-3 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-[var(--text-main)] font-bold rounded-xl text-sm transition-all duration-150 cursor-pointer">Reset</button>
+                    </div>
+                    <button id="btn-pomodoro-done-early" class="hidden w-full max-w-xs py-3 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl text-sm transition-all duration-150 shadow-md cursor-pointer uppercase tracking-wider">✅ Done Early — Submit Session</button>
+                    <div class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">Completed Target Streaks: <span id="pomodoro-streak-counter-value" class="text-[var(--text-main)] font-black text-sm ml-1">0</span></div>
+                </div>
+            </div>
+
+            <div class="custom-card p-6">
+                <h3 class="text-base font-black mb-4 border-b border-[var(--border-ui)] pb-2">📋 Isolated Historical Study Ledgers (True Segmented Multi-User Views)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 dashboard-grid">
+                    <div>
+                        <h4 class="text-xs font-black text-indigo-600 uppercase tracking-widest mb-2">🥇 Your Secure Focus Study Blocks</h4>
+                        <div class="responsive-table-wrapper">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="border-b border-[var(--border-ui)] text-[var(--text-muted)] font-bold bg-slate-50 dark:bg-slate-800">
+                                        <th class="py-2 px-2">Timestamp</th>
+                                        <th class="py-2 px-2">Domain Subject</th>
+                                        <th class="py-2 px-2">Duration</th>
+                                        <th class="py-2 px-2 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body-my-sessions-logs"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-2">🥈 Alternative Peer Arena Logs</h4>
+                        <div class="responsive-table-wrapper">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="border-b border-[var(--border-ui)] text-[var(--text-muted)] font-bold bg-slate-50 dark:bg-slate-800">
+                                        <th class="py-2 px-2">Warrior</th>
+                                        <th class="py-2 px-2">Domain Subject</th>
+                                        <th class="py-2 px-2">Duration Log</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body-peer-sessions-logs"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-panel-mocks" class="space-y-6 hidden">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 dashboard-grid">
+                <div class="custom-card p-6 space-y-4">
+                    <h3 class="text-base font-black border-b border-[var(--border-ui)] pb-2">📝 Submit Mark Sheet</h3>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-[var(--text-muted)] mb-1">Mock Type</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button id="btn-tier-toggle-t1" class="py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-indigo-600 bg-indigo-600 text-white transition-all duration-150 shadow-md cursor-pointer">Tier 1</button>
+                            <button id="btn-tier-toggle-t2" class="py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-[var(--border-ui)] text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-main)] transition-all duration-150 shadow-md cursor-pointer">Tier 2</button>
+                            <button id="btn-tier-toggle-sec" class="py-2 font-black text-xs rounded-lg uppercase tracking-wider border border-[var(--border-ui)] text-[var(--text-muted)] bg-[var(--bg-primary)] hover:text-[var(--text-main)] transition-all duration-150 shadow-md cursor-pointer">Sectional</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-[var(--text-muted)] mb-1">Mock Reference Identity Name</label>
+                        <input type="text" id="input-mock-provider-display-name" placeholder="e.g., Oliveboard Live Mock 43" class="w-full p-2.5 rounded-lg ui-input font-medium text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div id="tier-score-inputs-container" class="space-y-3 pt-2 border-t border-[var(--border-ui)]"></div>
+                    <div class="pt-4 border-t border-[var(--border-ui)] flex items-center justify-between">
+                        <div class="text-left">
+                            <p class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest">Aggregate Cumulative Total</p>
+                            <div id="display-mock-live-computed-total-score" class="text-xl font-black text-[var(--text-main)] tracking-tight">0 / 200</div>
+                        </div>
+                        <button id="btn-commit-mock-sheet" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-xl text-xs uppercase tracking-widest shadow-md cursor-pointer transition-colors duration-150">Commit Mark Sheet</button>
+                    </div>
+                </div>
+
+                <div class="custom-card p-6 md:col-span-2">
+                    <h3 class="text-base font-black mb-4 border-b border-[var(--border-ui)] pb-2">🏆 Performance Tracking Analytics Feed Matrix</h3>
+                    <div class="grid grid-cols-1 gap-6">
+                        <div>
+                            <h4 class="text-xs font-black text-indigo-600 uppercase tracking-widest mb-2">🥇 Your Assessment Log Rows</h4>
+                            <div class="responsive-table-wrapper">
+                                <table class="w-full text-left border-collapse text-xs">
+                                    <thead>
+                                        <tr class="border-b border-[var(--border-ui)] text-[var(--text-muted)] font-bold bg-slate-50 dark:bg-slate-800">
+                                            <th class="py-2 px-2">Mock Reference Title</th>
+                                            <th class="py-2 px-2">Tier</th>
+                                            <th class="py-2 px-2">Subject Wise Split</th>
+                                            <th class="py-2 px-2">Aggregate</th>
+                                            <th class="py-2 px-2 text-right">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-body-my-mocks-logs"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-2">🥈 Alternative Peer Mocks Sheets</h4>
+                            <div class="responsive-table-wrapper">
+                                <table class="w-full text-left border-collapse text-xs">
+                                    <thead>
+                                        <tr class="border-b border-[var(--border-ui)] text-[var(--text-muted)] font-bold bg-slate-50 dark:bg-slate-800">
+                                            <th class="py-2 px-2">Mock Reference Title</th>
+                                            <th class="py-2 px-2">Warrior</th>
+                                            <th class="py-2 px-2">Tier</th>
+                                            <th class="py-2 px-2">Subject Wise Split</th>
+                                            <th class="py-2 px-2">Aggregate</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-body-peer-mocks-logs"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-panel-syllabus" class="space-y-6 hidden">
+            <div class="custom-card p-6">
+                <div class="flex items-center justify-between border-b border-[var(--border-ui)] pb-4 mb-4">
+                    <div>
+                        <h3 class="text-base font-black">📚 Syllabus Content Milestone Tracker</h3>
+                        <p class="text-xs text-[var(--text-muted)]">Check segments to synchronize metrics tracking matrices dashboard calculations engine.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <input type="text" id="input-new-syllabus-custom-topic-name" placeholder="e.g., Trigo Maxima Minima" class="p-2 rounded-lg ui-input text-xs focus:outline-none w-48">
+                        <select id="select-new-syllabus-category-target" class="p-2 rounded-lg ui-input text-xs focus:outline-none">
+                            <option value="QA">Quantitative Aptitude</option>
+                            <option value="EL">English Language</option>
+                            <option value="GI">Reasoning Intelligence</option>
+                            <option value="GA">General Awareness</option>
+                            <option value="CS">Computer Knowledge</option>
+                        </select>
+                        <button id="btn-add-syllabus-topic" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-lg cursor-pointer transition-colors duration-150">Add Topic</button>
+                    </div>
+                </div>
+                <div id="syllabus-master-category-grid-box" class="grid grid-cols-1 md:grid-cols-2 gap-6 dashboard-grid"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <button class="theme-toggle-fab w-14 h-14 rounded-full flex items-center justify-center text-xl cursor-pointer hover:scale-105 active:scale-95 transition-all duration-150 shadow-2xl" id="themeToggleButton">🌙</button>
+
+    <div id="app-credentials-setup-modal-shroud" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center z-[9999] p-4">
+        <div class="bg-[var(--bg-card)] border border-[var(--border-ui)] rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl">
+            <div class="text-center">
+                <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mx-auto text-indigo-600 text-2xl font-black mb-2">🔐</div>
+                <h2 class="text-xl font-black text-[var(--text-main)]">Cloud Synchronization Link</h2>
+                <p class="text-xs text-[var(--text-muted)] mt-1">Provide your remote Supabase infrastructure access keys parameters baseline.</p>
+            </div>
+            
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-[var(--text-muted)] mb-1">Supabase REST Endpoint Web URL</label>
+                    <input type="text" id="setup-credentials-supabase-url" placeholder="https://xyz.supabase.co" class="w-full p-2.5 rounded-lg ui-input font-medium text-sm focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-[var(--text-muted)] mb-1">Supabase Client Public Anon API Key Token</label>
+                    <input type="text" id="setup-credentials-supabase-anon-key" placeholder="eyJhbGciOi..." class="w-full p-2.5 rounded-lg ui-input font-medium text-sm focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-[var(--text-muted)] mb-1">Your Identity Profile Name (Username)</label>
+                    <input type="text" id="setup-credentials-user-profile-name" placeholder="e.g., Ajay" class="w-full p-2.5 rounded-lg ui-input font-bold text-sm focus:outline-none">
+                </div>
+            </div>
+
+            <button id="btn-establish-pipeline-trigger" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-sm rounded-xl transition-all duration-150 uppercase tracking-widest shadow-md cursor-pointer">Establish Pipeline</button>
+        </div>
+    </div>
+
+    <div id="ui-toast-notifications-delivery-stack-deck" class="fixed top-5 right-5 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none"></div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

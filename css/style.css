@@ -1,0 +1,72 @@
+/* 🌓 Professional Night Mode Architecture Core Variables Palette */
+:root {
+    --bg-primary: #f8fafc;
+    --bg-card: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border-ui: #e2e8f0;
+    --accent-glow: #4f46e5;
+    --accent-hover: #4338ca;
+}
+
+[data-theme="dark"] {
+    --bg-primary: #0f172a;
+    --bg-card: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-ui: #334155;
+    --accent-glow: #6366f1;
+    --accent-hover: #4f46e5;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    font-family: system-ui, -apple-system, sans-serif;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.custom-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-ui);
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ui-input {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    border: 1px solid var(--border-ui);
+}
+
+.rec-box {
+    background: linear-gradient(135deg, var(--accent-glow), #06b6d4);
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
+
+.theme-toggle-fab {
+    position: fixed; bottom: 1.5rem; right: 1.5rem;
+    background-color: var(--accent-glow); color: #ffffff;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); z-index: 50;
+}
+
+/* 📱 CRITICAL MOBILE SCREEN LAYOUT EXPLICIT OVERRIDES FOR RESPONSIVE BEHAVIOR */
+@media (max-width: 768px) {
+    .app-container { padding: 0.5rem !important; }
+    .dashboard-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+    .versus-flex-frame { flex-direction: column !important; gap: 1.25rem !important; }
+    .versus-player-card { width: 100% !important; text-align: center; }
+    .nav-tabs-scroll {
+        display: flex; overflow-x: auto; white-space: nowrap;
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+        padding-bottom: 0.25rem; border-bottom: 2px solid var(--border-ui);
+    }
+    .nav-tabs-scroll::-webkit-scrollbar { display: none; }
+    .timer-display-digits { font-size: 3.75rem !important; line-height: 1 !important; }
+    .responsive-table-wrapper { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}

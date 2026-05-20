@@ -4,7 +4,7 @@ class SupabaseDataInfrastructureBroker {
     }
 
     hasSavedCredentials() {
-        return localStorage.getItem('core_credentials_supabase_url') && 
+        return  'https://covwtpfbrafexmiidluo.supabase.co' && 
                localStorage.getItem('core_credentials_supabase_anon_key');
     }
 
@@ -16,7 +16,7 @@ class SupabaseDataInfrastructureBroker {
 
     getSavedCredentials() {
         return {
-            url: localStorage.getItem('core_credentials_supabase_url'),
+            url:  'https://covwtpfbrafexmiidluo.supabase.co',
             anonKey: localStorage.getItem('core_credentials_supabase_anon_key'),
             userName: localStorage.getItem('ssc_user_profile_name') || 'Warrior'
         };

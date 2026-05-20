@@ -100,22 +100,33 @@ class ChartVisualizationCanvasManager {
 
         const calcAvg = (arr) => arr.length === 0 ? 0 : Math.round(arr.reduce((a, b) => a + b, 0) / arr.length);
         let datasetsAssemblyArray = [];
-        let hexColors = ['#4f46e5', '#06b6d4', '#ec4899', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444'];
-        let loopIdx = 0;
+        const labelTextColor = isDark ? '#94a3b8' : '#64748b';
 
         for (let userKey in datasetAggregationMap) {
-            const qaAvg = calcAvg(datasetAggregationMap[userKey].QA); const giAvg = calcAvg(datasetAggregationMap[userKey].GI);
-            const elAvg = calcAvg(datasetAggregationMap[userKey].EL); const gaAvg = calcAvg(datasetAggregationMap[userKey].GA);
+            const qaAvg = calcAvg(datasetAggregationMap[userKey].QA); 
+            const giAvg = calcAvg(datasetAggregationMap[userKey].GI);
+            const elAvg = calcAvg(datasetAggregationMap[userKey].EL); 
+            const gaAvg = calcAvg(datasetAggregationMap[userKey].GA);
 
             const isMe = userKey === currentUserName;
-            const clr = isMe ? '#4f46e5' : hexColors[loopIdx % hexColors.length]; loopIdx++; loopIdx++;
-            if (!isMe) loopIdx++;
+            
+            // HARDFIX: High contrast distinct colors — You get Indigo, Buddy gets Neon Cyan
+            const clr = isMe ? '#4f46e5' : '#00f0ff'; 
 
             datasetsAssemblyArray.push({
                 label: isMe ? `🥇 You (${userKey})` : `👤 Warrior: ${userKey}`,
                 data: [(qaAvg / 100) * 90, (giAvg / 100) * 90, (elAvg / 100) * 90, (gaAvg / 100) * 90],
-                backgroundColor: isMe ? 'rgba(79, 70, 229, 0.05)' : `${clr}44`, fill: true, pointBorderWidth: isMe ? 2 : 3, pointHoverRadius: 6,
-                borderColor: clr, borderWidth: isMe ? 3.5 : 2, pointBackgroundColor: clr, pointBorderColor: '#ffffff', pointRadius: isMe ? 5 : 4
+                
+                // Disabling background fill for buddy to prevent translucent overlapping colors mix
+                fill: isMe ? 'origin' : false,
+                backgroundColor: isMe ? 'rgba(79, 70, 229, 0.12)' : 'transparent',
+                
+                borderColor: clr, 
+                borderWidth: isMe ? 4 : 3, 
+                pointBackgroundColor: clr, 
+                pointBorderColor: isMe ? '#ffffff' : '#00f0ff', 
+                pointRadius: isMe ? 6 : 5,
+                pointHoverRadius: 7
             });
         }
 
@@ -130,7 +141,7 @@ class ChartVisualizationCanvasManager {
                 scales: {
                     r: {
                         min: 0, max: 90, grid: { color: isDark ? '#334155' : '#e2e8f0' },
-                        pointLabels: { font: { size: 11, weight: 'bold' }, color: isDark ? '#94a3b8' : '#64748b' }, ticks: { display: false }
+                        pointLabels: { font: { size: 11, weight: 'bold' }, color: labelTextColor }, ticks: { display: false }
                     }
                 },
                 plugins: { legend: { position: 'top', labels: { color: isDark ? '#f8fafc' : '#0f172a', font: { weight: '600' } } } }
@@ -163,7 +174,7 @@ class ChartVisualizationCanvasManager {
             const verdict = avg >= 80 ? { text: 'Excellent 🏆', color: '#10b981', bg: isDark ? 'border-emerald-800' : 'border-emerald-200', style: isDark ? 'background:#052e16' : 'background:#f0fdf4' }
                 : avg >= 70 ? { text: 'Good ✅', color: '#4f46e5', bg: isDark ? 'border-indigo-800' : 'border-indigo-200', style: isDark ? 'background:#1e1b4b' : 'background:#eef2ff' }
                 : avg >= 55 ? { text: 'Average ⚠️', color: '#f59e0b', bg: isDark ? 'border-amber-800' : 'border-amber-200', style: isDark ? 'background:#2d1f00' : 'background:#fffbeb' }
-                : { text: 'Needs Work 🔴', color: '#ef4444', bg: isDark ? 'border-red-800' : 'border-red-200', style: isDark ? 'background:#2d0000' : 'background:#fef2f2' };
+                : { text: 'Needs Work 🔴', color: '#ef4444', bg: isDark ? 'border-red-800' : 'border-red-200', style: isDark ? 'background:#2d0000' : 'background:#fef2f2';
 
             return `
                 <div class="rounded-xl border p-3 ${verdict.bg}" style="${verdict.style}">

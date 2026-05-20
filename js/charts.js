@@ -47,7 +47,7 @@ function renderMultiUserRadarChart(mockSheetsLogs, currentUsername) {
 
         const isMe = user.toLowerCase() === currentUsername.toLowerCase();
         
-        // Decouple color palette loop maps
+        // Decouple color palette loop maps and force separate sharp boundaries
         const clr = isMe ? '#4f46e5' : hexColors[loopIdx % hexColors.length];
         if (!isMe) loopIdx++;
 

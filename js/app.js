@@ -88,12 +88,10 @@ class ApplicationLifecycleEngine {
         await this.populateSubjectsInterfaceDropdowns();
         this.adaptScientificPomodoroRecommendation();
         
-        // Instant Boot execution sequence to populate cards and graphs immediately
         await this.triggerMasterDatabaseSynchronizationRefresh();
         await this.renderSyllabusMilestonesChecklistInterface();
         await this.fetchAndRenderLiveUsers();
 
-        // Balanced active polling execution rates
         setInterval(() => this.triggerMasterDatabaseSynchronizationRefresh(), 15000);
         setInterval(() => this.fetchAndRenderLiveUsers(), 15000);
         setInterval(() => this.populateSubjectsInterfaceDropdowns(), 60000);
@@ -339,7 +337,6 @@ class ApplicationLifecycleEngine {
             const isStudy = (localStorage.getItem('pomodoro_active_session_mode') || 'STUDY') === 'STUDY';
             if (isStudy) document.getElementById('btn-pomodoro-done-early').classList.remove('hidden');
             
-            // Core Instant Sync Logic: Force immediate DB write when timer starts
             if (isStudy) {
                 this.startLiveStudyAccumulator();
                 if (supabaseService.client) {
@@ -348,7 +345,7 @@ class ApplicationLifecycleEngine {
                     await supabaseService.client.from('live_battlegrounds').upsert([{
                         user_name: userName, current_subject: subject, last_active_tick: new Date().toISOString()
                     }], { onConflict: 'user_name' });
-                    this.fetchAndRenderLiveUsers(); // Re-render local display instantly
+                    this.fetchAndRenderLiveUsers();
                 }
             }
             this.spawnContinuousWebWorkerCountdownLoop(cutoff);
@@ -479,7 +476,7 @@ class ApplicationLifecycleEngine {
             await supabaseService.client.from('live_battlegrounds').upsert([{
                 user_name: userName, current_subject: subject, last_active_tick: new Date().toISOString()
             }], { onConflict: 'user_name' });
-            this.fetchAndRenderLiveUsers(); // Instantly pull updates every minute
+            this.fetchAndRenderLiveUsers();
         }, 60000);
     }
 

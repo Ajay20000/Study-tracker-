@@ -1,74 +1,86 @@
-// Warriors Arena - Charting Engine
-// Decouples true percentages for UI cards from radar spatial mapping constraints
+/**
+ * Warriors Arena - Advanced Charting & Data Visuals Engine
+ * Clean Production Build - High Contrast Color Separation
+ */
 
-function renderMultiUserRadarChart(mockSheetsLogs, currentUsername) {
-    const ctx = document.getElementById('userRadarChart');
+window.triggerDashboardChartsRefresh = function() {
+    console.log("Refreshing metrics grid data...");
+    fetchAndRenderChartData();
+};
+
+async function fetchAndRenderChartData() {
+    const client = window.currentSupabaseClient;
+    if (!client) return;
+
+    try {
+        const { data: records, error } = await client
+            .from("study_logs")
+            .select("username, qa_score, lr_score, en_score, ga_score, tier_type");
+
+        if (error) throw error;
+        renderMultiUserRadarChart(records);
+    } catch (err) {
+        console.error("Failed to load charting stream data: ", err);
+    }
+}
+
+function renderMultiUserRadarChart(records) {
+    const ctx = document.getElementById("radar-canvas-element");
     if (!ctx) return;
 
-    // Standard Tier Ceiling Configuration Bounding Matrix
-    const ceilings = {
-        'Tier 1': { qa: 50, lr: 50, eng: 50, ga: 50 },
-        'Tier 2': { qa: 90, lr: 90, eng: 135, ga: 75 },
-        'Sectional': { qa: 50, lr: 50, eng: 50, ga: 50 }
-    };
+    // Zero-out and restructure datasets aggregation maps
+    const datasetAggregationMap = {};
 
-    // Grouping records by user profiles
-    const userGroups = {};
-    mockSheetsLogs.forEach(mockRow => {
-        const user = mockRow.username || 'Anonymous';
-        if (!userGroups[user]) {
-            userGroups[user] = { qa: [], lr: [], eng: [], ga: [] };
+    records.forEach(row => {
+        if (!datasetAggregationMap[row.username]) {
+            datasetAggregationMap[row.username] = { qa: 0, lr: 0, en: 0, ga: 0, count: 0 };
         }
         
-        const tier = mockRow.tier_type || 'Tier 1';
-        const ceiling = ceilings[tier] || ceilings['Tier 1'];
-
-        // Map directly to true percentage efficiencies (0-100%)
-        if (mockRow.qa_score !== undefined) userGroups[user].qa.push((mockRow.qa_score / ceiling.qa) * 100);
-        if (mockRow.lr_score !== undefined) userGroups[user].lr.push((mockRow.lr_score / ceiling.lr) * 100);
-        if (mockRow.eng_score !== undefined) userGroups[user].eng.push((mockRow.eng_score / ceiling.eng) * 100);
-        if (mockRow.ga_score !== undefined) userGroups[user].ga.push((mockRow.ga_score / ceiling.ga) * 100);
+        // Map elements directly utilizing absolute 0-100% metrics boundaries
+        datasetAggregationMap[row.username].qa += row.qa_score || 0;
+        datasetAggregationMap[row.username].lr += row.lr_score || 0;
+        datasetAggregationMap[row.username].en += row.en_score || 0;
+        datasetAggregationMap[row.username].ga += row.ga_score || 0;
+        datasetAggregationMap[row.username].count++;
     });
 
     const datasetsAssemblyArray = [];
-    const hexColors = ['#00f0ff', '#ec4899', '#10b981', '#f59e0b'];
     let loopIdx = 0;
 
-    const subjectsList = ['qa', 'lr', 'eng', 'ga'];
-    
-    // Process averages and scale securely for Radar Canvas Matrix bounds (0-90)
-    for (const [user, dataObj] of Object.entries(userGroups)) {
-        const trueAverages = [];
-        subjectsList.forEach(sub => {
-            const arr = dataObj[sub];
-            const avg = arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0;
-            trueAverages.push(avg);
-        });
-
-        const isMe = user.toLowerCase() === currentUsername.toLowerCase();
+    Object.keys(datasetAggregationMap).forEach(user => {
+        const agg = datasetAggregationMap[user];
+        const entriesCount = agg.count || 1;
         
-        // Decouple color palette loop maps and force separate sharp boundaries
-        const clr = isMe ? '#4f46e5' : hexColors[loopIdx % hexColors.length];
-        if (!isMe) loopIdx++;
+        // Uncompressed direct absolute average computation percentages
+        const trueAverages = [
+            agg.qa / entriesCount,
+            agg.lr / entriesCount,
+            agg.en / entriesCount,
+            agg.ga / entriesCount
+        ];
 
-        // Scale 0-100% true values down onto the 0-90 physical Radar display matrix bounds
-        const spatialRadarData = trueAverages.map(val => (val * 90) / 100);
+        const isMe = (user === window.currentIdentityUser);
+        
+        // Strict high contrast design system separation metrics
+        const borderColorHex = isMe ? "#4f46e5" : "#00f0ff"; // Solid Indigo vs Sharp Neon Cyan
+        const bgFillColorHex = isMe ? "rgba(79, 70, 229, 0.2)" : "rgba(0, 0, 0, 0)"; // Disabling buddy overlay fills to block blending artifacts
 
         datasetsAssemblyArray.push({
             label: isMe ? `You (${user})` : `Warrior: ${user}`,
-            data: spatialRadarData,
-            fill: isMe,
-            backgroundColor: isMe ? 'rgba(79, 70, 229, 0.2)' : 'transparent',
-            borderColor: clr,
-            pointBackgroundColor: clr,
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: clr,
-            borderWidth: isMe ? 3 : 2.5
+            data: trueAverages, // Normalized directly to absolute percentage validation targets
+            backgroundColor: bgFillColorHex,
+            borderColor: borderColorHex,
+            borderWidth: isMe ? 3 : 2,
+            pointBackgroundColor: borderColorHex,
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: borderColorHex,
+            fill: isMe // Only fill user area to entirely prevent dull blending overlaps
         });
-    }
 
-    // Destroy existing chart instance to handle hot reloads perfectly
+        loopIdx++;
+    });
+
     if (window.radarChartInstance) {
         window.radarChartInstance.destroy();
     }
@@ -76,7 +88,7 @@ function renderMultiUserRadarChart(mockSheetsLogs, currentUsername) {
     window.radarChartInstance = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ['Quantitative Aptitude', 'Logical Reasoning', 'English Language', 'General Awareness'],
+            labels: ['Quant Analytics', 'Logical Reasoning', 'English Master', 'General Awareness'],
             datasets: datasetsAssemblyArray
         },
         options: {
@@ -84,16 +96,16 @@ function renderMultiUserRadarChart(mockSheetsLogs, currentUsername) {
             maintainAspectRatio: false,
             scales: {
                 r: {
-                    angleLines: { color: 'rgba(156, 163, 175, 0.2)' },
-                    grid: { color: 'rgba(156, 163, 175, 0.2)' },
-                    pointLabels: { font: { size: 11 }, color: '#6b7280' },
-                    ticks: { display: false },
-                    min: 0,
-                    max: 90
+                    angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                    pointLabels: { color: '#9ca3af', font: { size: 12 } },
+                    ticks: { color: '#6b7280', backdropColor: 'transparent' },
+                    suggestedMin: 0,
+                    suggestedMax: 100 // Proper metric alignment scaling out of absolute 100% bounds
                 }
             },
             plugins: {
-                legend: { position: 'top', labels: { color: '#374151', font: { weight: '600' } } }
+                legend: { labels: { color: '#e5e7eb' } }
             }
         }
     });

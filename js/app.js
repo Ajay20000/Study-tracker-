@@ -1,6 +1,6 @@
 // Warriors Arena - Core Application Lifecycle Engine
+// Fully decoupled from ES modules to support global scope charting functions flawlessly
 
-// Establishing Global Configuration States
 window.supabaseClientInstance = null;
 
 // DOM Content Loaded - Initialization Bootstrapping Pipeline
@@ -85,7 +85,6 @@ function setupLocalTimerInteractions() {
         broadcastLiveActivityHeartbeat(durationMinutes + " Min Focus Block");
         
         console.log(`Focus block tracking initiated: ${durationMinutes} minutes.`);
-        // Note: Real deployment invokes background timer isolation layer thread securely here
     });
 
     stopBtn.addEventListener('click', () => {
@@ -107,7 +106,7 @@ async function broadcastLiveActivityHeartbeat(statusText) {
                 last_heartbeat: new Date().toISOString() 
             }, { onConflict: 'username' });
             
-        // Instantly fetch back to eliminate the 15s delay matrix entirely
+        // Instantly fetch back to eliminate structural latency entirely
         fetchAndRenderLiveUsers();
     } catch (error) {
         console.error('Activity transmission anomaly:', error);
@@ -125,7 +124,7 @@ async function fetchAndRenderLiveUsers() {
 
         if (error) throw error;
 
-        // Render logs inside dynamic grid layout
+        // Render logs inside dynamic grid layout cleanly
         const container = document.getElementById('liveBattlegroundsContainer');
         if (!container) return;
 
@@ -147,7 +146,7 @@ async function fetchAndRenderLiveUsers() {
             container.appendChild(card);
         });
 
-        // Trigger radar rendering updates directly from global scope function link safely
+        // Trigger radar rendering updates directly from global scope safely
         if (typeof renderMultiUserRadarChart === 'function') {
             const { data: sheetsData } = await window.supabaseClientInstance
                 .from('mock_sheets_logs')

@@ -292,14 +292,11 @@ class ApplicationLifecycleEngine {
     }
 
     adaptScientificPomodoroRecommendation() {
-    if (localStorage.getItem('pomodoro_engine_runtime_state') === 'RUNNING') return;
-    if (localStorage.getItem('pomodoro_engine_runtime_state') === 'RUNNING') return;
+        if (localStorage.getItem('pomodoro_engine_runtime_state') === 'RUNNING') return;
         const dropdown = document.getElementById('pomodoro-subject-dropdown');
         if (!dropdown) return;
         const key = dropdown.value;
-        const rule = this.scientificPomodoroRulesEngineMatrix[key] || {
-    if (localStorage.getItem('pomodoro_engine_runtime_state') === 'RUNNING') return;
-    if (localStorage.getItem('pomodoro_engine_runtime_state') === 'RUNNING') return; rec: "🎯 Focus block initialized. Maintain target discipline.", time: "25" };
+        const rule = this.scientificPomodoroRulesEngineMatrix[key] || { rec: "🎯 Focus block initialized. Maintain target discipline.", time: "25" };
 
         document.getElementById('scientific-rec').innerHTML = rule.rec;
         document.getElementById('pomodoro-session-selector').value = rule.time;

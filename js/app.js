@@ -68,7 +68,7 @@ function bootCloudConnectionPipeline(url, key, username) {
     }
 }
 
-// Focus Chronometer - Inline Blob Web-Worker Mechanical Core Implementation
+// Focus Chronometer - Core Implementation with Instant Battlegrounds Sync Triggers
 function setupLocalTimerInteractions() {
     const startBtn = document.getElementById('startTimerBtn');
     const stopBtn = document.getElementById('stopTimerBtn');
@@ -81,7 +81,7 @@ function setupLocalTimerInteractions() {
         localStorage.setItem('timer_running_state', 'RUNNING');
         localStorage.setItem('timer_initial_duration', durationMinutes);
         
-        // Instant Real-time Broadcast Trigger for Live Synchronized Battlegrounds
+        // Instant Real-time Broadcast Trigger for Live Synchronized Battlegrounds (Eliminates 15s delay)
         broadcastLiveActivityHeartbeat(durationMinutes + " Min Focus Block");
         
         console.log(`Focus block tracking initiated: ${durationMinutes} minutes.`);
@@ -106,7 +106,7 @@ async function broadcastLiveActivityHeartbeat(statusText) {
                 last_heartbeat: new Date().toISOString() 
             }, { onConflict: 'username' });
             
-        // Instantly fetch back to eliminate structural latency entirely
+        // Instantly fetch backend data to clear out structural interface latency completely
         fetchAndRenderLiveUsers();
     } catch (error) {
         console.error('Activity transmission anomaly:', error);
@@ -146,7 +146,7 @@ async function fetchAndRenderLiveUsers() {
             container.appendChild(card);
         });
 
-        // Trigger radar rendering updates directly from global scope safely
+        // Trigger radar rendering updates directly from global scope function link safely
         if (typeof renderMultiUserRadarChart === 'function') {
             const { data: sheetsData } = await window.supabaseClientInstance
                 .from('mock_sheets_logs')
